@@ -1,0 +1,9 @@
+{
+  "name": "ordering-miniprogram",
+  "version": "1.0.0",
+  "description": "ordering miniprogram",
+  "author": "thisdk",
+  "dependencies": {
+    "@vant/weapp": "^1.6.4"
+  }
+}
