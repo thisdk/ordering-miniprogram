@@ -166,4 +166,10 @@
 
     </view>
 
+    <view wx:else class="index-ordering-container-empty">
+
+        <van-empty image="search" description="正在获取用户授权..." />
+
+    </view>
+
 </view>

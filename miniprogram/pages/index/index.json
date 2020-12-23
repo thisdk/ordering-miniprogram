@@ -6,6 +6,7 @@
     "van-sidebar-item": "@vant/weapp/sidebar-item/index",
     "van-submit-bar": "@vant/weapp/submit-bar/index",
     "van-card": "@vant/weapp/card/index",
-    "van-button": "@vant/weapp/button/index"
+    "van-button": "@vant/weapp/button/index",
+    "van-empty": "@vant/weapp/empty/index"
   }
 }

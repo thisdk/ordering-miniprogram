@@ -46,6 +46,13 @@
     color: #DB282BFF;
 }
 
+.index-ordering-container-empty{
+    height: calc(100% - 50px);
+    display: flex;
+    flex-direction: column;
+    padding-top: 100rpx;
+}
+
 .index-ordering-container {
     height: calc(100% - 50px);
     display: flex;
