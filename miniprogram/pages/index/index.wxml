@@ -4,9 +4,8 @@
             show="{{ show && !hasUserInfo }}"
             position="bottom"
             bind:close="onPopupClose"
-            custom-style="height: 40%;"
-            :close-on-click-overlay="false">
-
+            custom-style="height: 612rpx;"
+            close-on-click-overlay="{{ false }}">
         <view class="popup-view">
             <text class="popup-view-title">欢迎使用i智慧饭堂小程序</text>
             <text class="popup-view-tips">1.本小程序暂时用于饭堂签到流程演示.</text>
@@ -17,11 +16,154 @@
                     open-type="getUserInfo" bindgetuserinfo="getUserInfo">授权用户信息
             </button>
             <view wx:else class="popup-view-error">
-                <van-icon name="warning" color="#DB282BFF" size="48rpx" />
+                <van-icon name="warning" color="#DB282BFF" size="48rpx"/>
                 <text class="popup-view-error-tips">小程序openid初始化异常,无法继续.</text>
             </view>
         </view>
-
     </van-popup>
+
+    <view wx:if="{{ hasUserInfo }}" class="index-ordering-container">
+
+        <view class="index-ordering-header">
+
+            <swiper indicator-dots="{{ true }}" autoplay="{{ true }}" interval="{{ 2000 }}" duration="{{ 500 }}">
+                <block wx:for="{{ background }}" wx:key="*this">
+                    <swiper-item>
+                        <view class="swiper-item {{item}}">{{item}}</view>
+                    </swiper-item>
+                </block>
+            </swiper>
+
+        </view>
+
+        <view class="index-ordering-content">
+
+            <van-sidebar active-key="{{ activeKey }}">
+                <van-sidebar-item title="热销"/>
+                <van-sidebar-item title="推荐"/>
+                <van-sidebar-item title="职工菜单"/>
+            </van-sidebar>
+
+            <view class="index-ordering-content-main">
+
+                <scroll-view class='index-ordering-content-main-scroll' scroll-y style="height: 100%">
+
+                    <view class="index-ordering-content-goods">
+
+                        <van-card
+                                tag="热销"
+                                price="12.00"
+                                desc="描述信息"
+                                title="商品标题"
+                                thumb="https://img.yzcdn.cn/vant/ipad.jpeg">
+
+                            <view slot="footer" style="margin-top: -22px;">
+                                <van-button round size="mini" icon="plus" type="primary"/>
+                            </view>
+
+                        </van-card>
+
+                        <van-card
+                                style="margin-top: 32rpx;"
+                                tag="热销"
+                                price="12.00"
+                                desc="描述信息"
+                                title="商品标题"
+                                thumb="https://img.yzcdn.cn/vant/ipad.jpeg">
+
+                            <view slot="footer" style="margin-top: -22px;">
+                                <van-button round size="mini" icon="plus" type="primary"/>
+                            </view>
+
+                        </van-card>
+
+                        <van-card
+                                style="margin-top: 32rpx;"
+                                tag="热销"
+                                price="12.00"
+                                desc="描述信息"
+                                title="商品标题"
+                                thumb="https://img.yzcdn.cn/vant/ipad.jpeg">
+
+                            <view slot="footer" style="margin-top: -22px;">
+                                <van-button round size="mini" icon="plus" type="primary"/>
+                            </view>
+
+                        </van-card>
+
+                        <van-card
+                                style="margin-top: 32rpx;"
+                                tag="热销"
+                                price="12.00"
+                                desc="描述信息"
+                                title="商品标题"
+                                thumb="https://img.yzcdn.cn/vant/ipad.jpeg">
+
+                            <view slot="footer" style="margin-top: -22px;">
+                                <van-button round size="mini" icon="plus" type="primary"/>
+                            </view>
+
+                        </van-card>
+
+                        <van-card
+                                style="margin-top: 32rpx;"
+                                tag="热销"
+                                price="12.00"
+                                desc="描述信息"
+                                title="商品标题"
+                                thumb="https://img.yzcdn.cn/vant/ipad.jpeg">
+
+                            <view slot="footer" style="margin-top: -22px;">
+                                <van-button round size="mini" icon="plus" type="primary"/>
+                            </view>
+
+                        </van-card>
+
+                        <van-card
+                                style="margin-top: 32rpx;"
+                                tag="热销"
+                                price="12.00"
+                                desc="描述信息"
+                                title="商品标题"
+                                thumb="https://img.yzcdn.cn/vant/ipad.jpeg">
+
+                            <view slot="footer" style="margin-top: -22px;">
+                                <van-button round size="mini" icon="plus" type="primary"/>
+                            </view>
+
+                        </van-card>
+
+                    </view>
+
+                </scroll-view>
+
+            </view>
+
+        </view>
+
+        <view class="index-ordering-footer">
+
+            <van-submit-bar
+                    style="width: 100%;"
+                    custom-class="van-submit-bar"
+                    button-text="提交订单"
+                    bind:submit="onOrderingSubmit"
+                    safe-area-inset-bottom="{{ false }}"
+                    tip="{{ false }}"
+                    price="{{ 3050 }}">
+
+                <view class="van-submit-bar-slot">
+
+                    <van-icon name="cart-o" size="36rpx" info="1"/>
+
+                    <text class="van-submit-bar-slot-text">购物车</text>
+
+                </view>
+
+            </van-submit-bar>
+
+        </view>
+
+    </view>
 
 </view>

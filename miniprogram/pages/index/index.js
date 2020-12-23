@@ -8,7 +8,9 @@ Page({
         show: false,
         hasUserOpenId: false,
         hasUserInfo: false,
-        canIUse: wx.canIUse('button.open-type.getUserInfo')
+        canIUse: wx.canIUse('button.open-type.getUserInfo'),
+        activeKey: "",
+        background: ['swiper-item-1', 'swiper-item-2', 'swiper-item-3'],
     },
     onLoad: function () {
         this.initUserOpenId();
@@ -23,6 +25,10 @@ Page({
         this.setData({show: true});
     },
     onPopupClose() {
+
+    },
+    onOrderingSubmit() {
+
     },
     initUserInfo() {
         if (app.globalData.userInfo) {
@@ -31,7 +37,6 @@ Page({
             })
         } else if (this.data.canIUse) {
             app.userInfoReadyCallback = res => {
-                console.log(res.userInfo)
                 app.globalData.userInfo = res.userInfo
                 this.setData({
                     hasUserInfo: true

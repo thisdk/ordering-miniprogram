@@ -7,7 +7,7 @@
 
 .popup-view-title {
     color: #333333;
-    font-size: 44rpx;
+    font-size: 48rpx;
     font-weight: bold;
     padding: 24rpx 0rpx;
 }
@@ -30,18 +30,98 @@
     background-color: #32a967;
 }
 
-.popup-view-error{
-  margin-top: 20rpx;
-  height: 120rpx;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+.popup-view-error {
+    margin-top: 20rpx;
+    height: 120rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
-.popup-view-error-tips{
-  font-size: 28rpx;
-  margin-left: 16rpx;
-  font-weight: 600;
-  color: #DB282BFF;
+.popup-view-error-tips {
+    font-size: 28rpx;
+    margin-left: 16rpx;
+    font-weight: 600;
+    color: #DB282BFF;
 }
+
+.index-ordering-container {
+    height: calc(100% - 50px);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.index-ordering-header {
+    height: 300rpx;
+    display: flex;
+    flex-direction: column;
+}
+
+.index-ordering-content {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+}
+
+.index-ordering-footer {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #f7f8fa;
+}
+
+.index-ordering-content-main {
+    flex: 1;
+    position: relative;
+}
+
+.index-ordering-content-main-scroll {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.index-ordering-content-goods {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 32rpx;
+}
+
+.van-submit-bar-slot {
+    margin: 8rpx 0rpx 0rpx 88rpx;
+    display: flex;
+    flex-direction: column;
+}
+
+.van-submit-bar-slot-text {
+    font-size: 24rpx;
+    color: #333333;
+}
+
+.van-submit-bar {
+    position: relative !important;
+    z-index: unset !important;
+}
+
+.swiper-item{
+    height: 100%;
+    line-height: 300rpx;
+    text-align: center;
+}
+
+.swiper-item-1{
+    background-color: cadetblue;
+}
+
+.swiper-item-2{
+    background-color: cornflowerblue;
+}
+
+.swiper-item-3{
+    background-color: gold;
+}
+

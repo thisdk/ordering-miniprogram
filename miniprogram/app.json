@@ -30,7 +30,6 @@
     "navigationBarTitleText": "i智慧饭堂",
     "navigationBarTextStyle": "black"
   },
-  "style": "v2",
   "sitemapLocation": "sitemap.json",
   "useExtendedLib": {
     "weui": true
