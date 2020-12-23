@@ -1,33 +1,16 @@
 {
-  "description": "项目配置文件",
-  "packOptions": {
-    "ignore": [
-      {
-        "type": "file",
-        "value": ".gitignore"
-      },
-      {
-        "type": "file",
-        "value": "package.json"
-      },
-      {
-        "type": "file",
-        "value": "package-lock.json"
-      },
-      {
-        "type": "folder",
-        "value": ".idea"
-      },
-      {
-        "type": "folder",
-        "value": "node_modules"
-      }
-    ]
-  },
+  "compileType": "miniprogram",
+  "libVersion": "2.14.1",
+  "appid": "wxdd5f28543852c63d",
+  "projectname": "ordering-miniprogram",
+  "miniprogramRoot": "miniprogram/",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
   "setting": {
     "urlCheck": true,
     "es6": true,
-    "enhance": false,
+    "enhance": true,
     "postcss": true,
     "preloadBackgroundData": false,
     "minified": true,
@@ -59,22 +42,40 @@
     "packNpmRelationList": [
       {
         "packageJsonPath": "./package.json",
-        "miniprogramNpmDistDir": "./"
+        "miniprogramNpmDistDir": "./miniprogram"
       }
     ],
     "minifyWXSS": true
   },
-  "compileType": "miniprogram",
-  "libVersion": "2.14.1",
-  "appid": "wxdd5f28543852c63d",
-  "projectname": "ordering-miniprogram",
   "debugOptions": {
     "hidedInDevtools": []
   },
   "scripts": {},
   "isGameTourist": false,
-  "simulatorType": "wechat",
-  "simulatorPluginLibVersion": {},
+  "packOptions": {
+    "ignore": [
+      {
+        "type": "file",
+        "value": ".gitignore"
+      },
+      {
+        "type": "file",
+        "value": "package.json"
+      },
+      {
+        "type": "file",
+        "value": "package-lock.json"
+      },
+      {
+        "type": "folder",
+        "value": ".idea"
+      },
+      {
+        "type": "folder",
+        "value": "node_modules"
+      }
+    ]
+  },
   "condition": {
     "search": {
       "list": []

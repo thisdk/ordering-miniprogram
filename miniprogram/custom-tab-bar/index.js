@@ -1,3 +1,5 @@
+const app = getApp()
+
 Component({
     data: {
         active: 0,
@@ -21,6 +23,7 @@ Component({
     },
     methods: {
         onChange(event) {
+            if(!app.globalData.userInfo) return;
             this.setData({active: event.detail});
             wx.switchTab({
                 url: this.data.list[event.detail].url

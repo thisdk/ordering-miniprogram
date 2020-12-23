@@ -2,7 +2,7 @@
   "name": "ordering-miniprogram",
   "version": "1.0.0",
   "description": "ordering miniprogram",
-  "author": "thisdk",
+  "author": "Jason Yuan",
   "dependencies": {
     "@vant/weapp": "^1.6.4"
   }

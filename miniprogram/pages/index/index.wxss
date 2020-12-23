@@ -1,0 +1,47 @@
+
+.popup-view {
+    padding: 32rpx;
+    display: flex;
+    flex-direction: column;
+}
+
+.popup-view-title {
+    color: #333333;
+    font-size: 44rpx;
+    font-weight: bold;
+    padding: 24rpx 0rpx;
+}
+
+.popup-view-tips {
+    color: #666666;
+    font-size: 28rpx;
+    font-weight: bold;
+}
+
+.popup-view-button {
+    font-size: 32rpx;
+    font-weight: normal;
+    color: white;
+    background-color: #36ec88;
+    margin-top: 50rpx;
+}
+
+.popup-view-button-hover {
+    background-color: #32a967;
+}
+
+.popup-view-error{
+  margin-top: 20rpx;
+  height: 120rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-view-error-tips{
+  font-size: 28rpx;
+  margin-left: 16rpx;
+  font-weight: 600;
+  color: #DB282BFF;
+}

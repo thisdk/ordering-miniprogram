@@ -1,0 +1,27 @@
+<view class="container">
+
+    <van-popup
+            show="{{ show && !hasUserInfo }}"
+            position="bottom"
+            bind:close="onPopupClose"
+            custom-style="height: 40%;"
+            :close-on-click-overlay="false">
+
+        <view class="popup-view">
+            <text class="popup-view-title">欢迎使用i智慧饭堂小程序</text>
+            <text class="popup-view-tips">1.本小程序暂时用于饭堂签到流程演示.</text>
+            <text class="popup-view-tips">2.本小程序暂时用于饭堂签到流程演示.</text>
+            <text class="popup-view-tips">3.本小程序暂时用于饭堂签到流程演示.</text>
+            <text class="popup-view-tips">4.使用过程需要用到您的用户名与头像.</text>
+            <button class="popup-view-button" hover-class="popup-view-button-hover" wx:if="{{ hasUserOpenId }}"
+                    open-type="getUserInfo" bindgetuserinfo="getUserInfo">授权用户信息
+            </button>
+            <view wx:else class="popup-view-error">
+                <van-icon name="warning" color="#DB282BFF" size="48rpx" />
+                <text class="popup-view-error-tips">小程序openid初始化异常,无法继续.</text>
+            </view>
+        </view>
+
+    </van-popup>
+
+</view>
