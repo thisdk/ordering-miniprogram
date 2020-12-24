@@ -52,8 +52,8 @@
   },
   "scripts": {
     "beforeCompile": "npm run build",
-    "beforePreview": "",
-    "beforeUpload": ""
+    "beforePreview": "npm run build",
+    "beforeUpload": "npm run build"
   },
   "isGameTourist": false,
   "packOptions": {
