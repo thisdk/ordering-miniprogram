@@ -5,11 +5,7 @@ cloud.init({
 })
 
 exports.main = async (event, context) => {
-    console.log(event)
-    console.log(context)
-
     const wxContext = cloud.getWXContext()
-
     return {
         event,
         openid: wxContext.OPENID,

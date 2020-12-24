@@ -27,111 +27,59 @@
         <view class="index-ordering-header">
 
             <swiper indicator-dots="{{ true }}" autoplay="{{ true }}" interval="{{ 2000 }}" duration="{{ 500 }}">
-                <block wx:for="{{ background }}" wx:key="*this">
-                    <swiper-item>
-                        <view class="swiper-item {{item}}">{{item}}</view>
-                    </swiper-item>
-                </block>
+
+                <swiper-item wx:for="{{ background }}" wx:key="*this">
+
+                    <view class="swiper-item {{item}}">{{item}}</view>
+
+                </swiper-item>
+
             </swiper>
 
         </view>
 
-        <view class="index-ordering-content">
+        <view wx:if="{{ foodDataInfo }}" class="index-ordering-content">
 
-            <van-sidebar active-key="{{ activeKey }}">
-                <van-sidebar-item title="热销"/>
-                <van-sidebar-item title="推荐"/>
-                <van-sidebar-item title="职工菜单"/>
+            <van-sidebar bind:change="onSidebarChange">
+
+                <van-sidebar-item wx:for="{{ foodDataInfo }}" wx:key="index" wx:for-item="item"
+                                  title="{{ item.category }}"/>
+
             </van-sidebar>
 
             <view class="index-ordering-content-main">
 
-                <scroll-view class='index-ordering-content-main-scroll' scroll-y style="height: 100%">
+                <scroll-view class='index-ordering-content-main-scroll'
+                             show-scrollbar="{{ false }}" scroll-y style="height: 100%">
 
-                    <view class="index-ordering-content-goods">
+                    <view class="index-ordering-content-food">
 
-                        <van-card
-                                tag="热销"
-                                price="12.00"
-                                desc="描述信息"
-                                title="商品标题"
-                                thumb="https://img.yzcdn.cn/vant/ipad.jpeg">
+                        <block wx:for="{{ foodDataInfo[category].list }}" wx:key="index" wx:for-item="item">
 
-                            <view slot="footer" style="margin-top: -22px;">
-                                <van-button round size="mini" icon="plus" type="primary"/>
-                            </view>
+                            <van-card
+                                    style="{{ index!==0 ? 'margin-top: 32rpx;' : '' }}"
+                                    tag="{{ item.tag }}"
+                                    price="{{ item.price / 100.00 }}"
+                                    origin-price="{{ item.origin > 0 ? item.origin / 100.00 : '' }}"
+                                    desc="{{ item.desc }}"
+                                    title="{{ item.title }}"
+                                    thumb="{{ item.thumb }}">
 
-                        </van-card>
+                                <view slot="footer" style="margin-top: -50rpx;">
 
-                        <van-card
-                                style="margin-top: 32rpx;"
-                                tag="热销"
-                                price="12.00"
-                                desc="描述信息"
-                                title="商品标题"
-                                thumb="https://img.yzcdn.cn/vant/ipad.jpeg">
+                                    <view bindtap="onFoodItemClick" data-id="{{ item }}"
+                                          class="index-ordering-content-food-plus"
+                                          hover-class="index-ordering-content-food-plus-hover">
 
-                            <view slot="footer" style="margin-top: -22px;">
-                                <van-button round size="mini" icon="plus" type="primary"/>
-                            </view>
+                                        <van-icon size="32rpx" color="white" name="plus"/>
 
-                        </van-card>
+                                    </view>
 
-                        <van-card
-                                style="margin-top: 32rpx;"
-                                tag="热销"
-                                price="12.00"
-                                desc="描述信息"
-                                title="商品标题"
-                                thumb="https://img.yzcdn.cn/vant/ipad.jpeg">
+                                </view>
 
-                            <view slot="footer" style="margin-top: -22px;">
-                                <van-button round size="mini" icon="plus" type="primary"/>
-                            </view>
+                            </van-card>
 
-                        </van-card>
-
-                        <van-card
-                                style="margin-top: 32rpx;"
-                                tag="热销"
-                                price="12.00"
-                                desc="描述信息"
-                                title="商品标题"
-                                thumb="https://img.yzcdn.cn/vant/ipad.jpeg">
-
-                            <view slot="footer" style="margin-top: -22px;">
-                                <van-button round size="mini" icon="plus" type="primary"/>
-                            </view>
-
-                        </van-card>
-
-                        <van-card
-                                style="margin-top: 32rpx;"
-                                tag="热销"
-                                price="12.00"
-                                desc="描述信息"
-                                title="商品标题"
-                                thumb="https://img.yzcdn.cn/vant/ipad.jpeg">
-
-                            <view slot="footer" style="margin-top: -22px;">
-                                <van-button round size="mini" icon="plus" type="primary"/>
-                            </view>
-
-                        </van-card>
-
-                        <van-card
-                                style="margin-top: 32rpx;"
-                                tag="热销"
-                                price="12.00"
-                                desc="描述信息"
-                                title="商品标题"
-                                thumb="https://img.yzcdn.cn/vant/ipad.jpeg">
-
-                            <view slot="footer" style="margin-top: -22px;">
-                                <van-button round size="mini" icon="plus" type="primary"/>
-                            </view>
-
-                        </van-card>
+                        </block>
 
                     </view>
 
@@ -141,34 +89,46 @@
 
         </view>
 
-        <view class="index-ordering-footer">
+        <view wx:else class="index-ordering-content-empty">
 
-            <van-submit-bar
-                    style="width: 100%;"
-                    custom-class="van-submit-bar"
-                    button-text="提交订单"
-                    bind:submit="onOrderingSubmit"
-                    safe-area-inset-bottom="{{ false }}"
-                    tip="{{ false }}"
-                    price="{{ 3050 }}">
-
-                <view class="van-submit-bar-slot">
-
-                    <van-icon name="cart-o" size="36rpx" info="1"/>
-
-                    <text class="van-submit-bar-slot-text">购物车</text>
-
-                </view>
-
-            </van-submit-bar>
+            <van-loading size="48rpx">加载中...</van-loading>
 
         </view>
+
+        <van-transition show="{{ cart.quantity > 0 }}" name="fade-up">
+
+            <view wx:if="{{ cart.quantity > 0 }}" class="index-ordering-footer">
+
+                <van-divider custom-style="margin: 0rpx;" hairline/>
+
+                <van-submit-bar
+                        style="width: 100%;"
+                        custom-class="van-submit-bar"
+                        button-text="提交订单"
+                        bind:submit="onOrderingSubmit"
+                        safe-area-inset-bottom="{{ false }}"
+                        tip="{{ false }}"
+                        price="{{ cart.total }}">
+
+                    <view class="van-submit-bar-slot">
+
+                        <van-icon name="cart-o" size="36rpx" info="{{ cart.quantity }}"/>
+
+                        <text class="van-submit-bar-slot-text">购物车</text>
+
+                    </view>
+
+                </van-submit-bar>
+
+            </view>
+
+        </van-transition>
 
     </view>
 
     <view wx:else class="index-ordering-container-empty">
 
-        <van-empty image="search" description="正在获取用户授权..." />
+        <van-empty image="search" description="正在获取用户授权..."/>
 
     </view>
 

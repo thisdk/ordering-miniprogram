@@ -22,12 +22,12 @@
     font-size: 32rpx;
     font-weight: normal;
     color: white;
-    background-color: #36ec88;
+    background-color: #07c160;
     margin-top: 50rpx;
 }
 
 .popup-view-button-hover {
-    background-color: #32a967;
+    background-color: #177c47;
 }
 
 .popup-view-error {
@@ -66,6 +66,14 @@
     flex-direction: column;
 }
 
+.index-ordering-content-empty{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .index-ordering-content {
     flex: 1;
     display: flex;
@@ -75,7 +83,6 @@
 .index-ordering-footer {
     display: flex;
     flex-direction: column;
-    border-top: 1px solid #f7f8fa;
 }
 
 .index-ordering-content-main {
@@ -91,15 +98,27 @@
     bottom: 0;
 }
 
-.index-ordering-content-goods {
+.index-ordering-content-food {
     flex: 1;
     display: flex;
     flex-direction: column;
     padding: 32rpx;
 }
 
+.index-ordering-content-food-plus{
+    width: 44rpx;
+    height: 44rpx;
+    display: inline-grid;
+    background-color: #07c160;
+    border-radius: 50%;
+}
+
+.index-ordering-content-food-plus-hover{
+    background-color: #1f7e4c;
+}
+
 .van-submit-bar-slot {
-    margin: 8rpx 0rpx 0rpx 88rpx;
+    margin-top: 8rpx;
     display: flex;
     flex-direction: column;
 }
@@ -107,6 +126,7 @@
 .van-submit-bar-slot-text {
     font-size: 24rpx;
     color: #333333;
+    text-align: center;
 }
 
 .van-submit-bar {
