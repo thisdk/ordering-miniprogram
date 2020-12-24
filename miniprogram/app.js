@@ -3,7 +3,8 @@ App({
         appid: "wxdd5f28543852c63d",
         secret: "",
         openid: "",
-        userInfo: null
+        userInfo: null,
+        location: false
     },
     onLaunch: function () {
         // 初始化云开发
@@ -25,6 +26,7 @@ App({
                         }
                     })
                 }
+                this.globalData.location = res.authSetting['scope.userLocation'];
             }
         })
     }

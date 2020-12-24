@@ -3,7 +3,7 @@
     <view wx:if="{{ hasUserInfo }}" class="index-ordering-container">
 
         <swiper class="index-ordering-header" indicator-dots="{{ true }}"
-                autoplay="{{ true }}" interval="{{ 2000 }}" duration="{{ 500 }}">
+                autoplay="{{ true }}" interval="{{ 5000 }}" duration="{{ 750 }}">
 
             <swiper-item wx:for="{{ background }}" wx:key="*this">
 
@@ -80,7 +80,7 @@
                         button-text="提交订单"
                         bind:submit="onOrderingSubmit"
                         safe-area-inset-bottom="{{ false }}"
-                        tip="{{ false }}"
+                        tip="{{ true }}"
                         price="{{ cart.total }}">
 
                     <view class="van-submit-bar-slot" bindtap="onCartClick">
@@ -90,6 +90,8 @@
                         <text class="van-submit-bar-slot-text">购物车</text>
 
                     </view>
+
+                    <view slot="tip" style="text-align: center;">点击购物车可以对餐品进行编辑.</view>
 
                 </van-submit-bar>
 
@@ -109,15 +111,15 @@
             show="{{ showCart }}"
             z-index="{{ 50 }}"
             position="bottom"
-            custom-style="height: 958rpx;"
+            custom-style="height: 1032rpx;"
             bind:close="onCartPopupClose"
             close-on-click-overlay="{{ true }}">
 
-        <view class="popup-cart-view">
+        <view class="popup-cart-content-view">
 
             <scroll-view enhanced="{{ true }}" show-scrollbar="{{ false }}" scroll-y style="height: 100%">
 
-                <view class="popup-cart-view-food">
+                <view class="popup-cart-content-view-food">
 
                     <van-card
                             wx:for="{{ cart.list }}" wx:key="index" wx:for-item="item"
@@ -152,20 +154,34 @@
             position="bottom"
             custom-style="height: 612rpx;"
             close-on-click-overlay="{{ false }}">
+
         <view class="popup-view">
-            <text class="popup-view-title">欢迎使用i智慧饭堂小程序</text>
-            <text class="popup-view-tips">1.本小程序暂时用于饭堂签到流程演示.</text>
-            <text class="popup-view-tips">2.本小程序暂时用于饭堂签到流程演示.</text>
-            <text class="popup-view-tips">3.本小程序暂时用于饭堂签到流程演示.</text>
-            <text class="popup-view-tips">4.使用过程需要用到您的用户名与头像.</text>
-            <button class="popup-view-button" hover-class="popup-view-button-hover" wx:if="{{ hasUserOpenId }}"
-                    open-type="getUserInfo" bindgetuserinfo="getUserInfo">授权用户信息
-            </button>
-            <view wx:else class="popup-view-error">
-                <van-icon name="warning" color="#DB282BFF" size="48rpx"/>
-                <text class="popup-view-error-tips">小程序openid初始化异常,无法继续.</text>
+
+            <view class="popup-view-content">
+
+                <text class="popup-view-content-title">欢迎使用i智慧饭堂小程序</text>
+                <text class="popup-view-content-tips">1.本小程序暂时用于饭堂签到流程演示.</text>
+                <text class="popup-view-content-tips">2.使用过程不会涉及任何金钱相关操作.</text>
+                <text class="popup-view-content-tips">4.使用过程需要用到您的用户名与头像.</text>
+                <text class="popup-view-content-tips">3.使用过程需要用到您的当前位置信息. (可选)</text>
+
+                <view class="popup-view-content-control">
+
+                    <button class="popup-view-content-control-button"
+                            hover-class="popup-view-content-control-button-hover" wx:if="{{ hasUserOpenId }}"
+                            open-type="getUserInfo" bindgetuserinfo="getUserInfo">授权用户信息
+                    </button>
+                    <view wx:else class="popup-view-content-control-error">
+                        <van-icon name="warning" color="#DB282BFF" size="48rpx"/>
+                        <text class="popup-view-content-control-error-tips">小程序openid初始化异常,无法继续.</text>
+                    </view>
+
+                </view>
+
             </view>
+
         </view>
+
     </van-popup>
 
 </view>

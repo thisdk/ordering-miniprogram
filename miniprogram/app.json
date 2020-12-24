@@ -4,6 +4,11 @@
     "pages/order/order",
     "pages/user/user"
   ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于计算距离."
+    }
+  },
   "tabBar": {
     "custom": true,
     "color": "#000000",

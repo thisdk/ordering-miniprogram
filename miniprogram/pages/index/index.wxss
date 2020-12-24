@@ -1,60 +1,73 @@
 
 .popup-view {
-    padding: 32rpx;
+    height: calc(612rpx - 100rpx);
     display: flex;
     flex-direction: column;
 }
 
-.popup-view-title {
+.popup-view-content {
+    flex: 1;
+    padding: 32rpx 32rpx 0rpx 32rpx;
+    display: flex;
+    flex-direction: column;
+}
+
+.popup-view-content-title {
     color: #333333;
     font-size: 48rpx;
     font-weight: bold;
     padding: 24rpx 0rpx;
 }
 
-.popup-view-tips {
+.popup-view-content-tips {
     color: #666666;
     font-size: 28rpx;
     font-weight: bold;
 }
 
-.popup-view-button {
+.popup-view-content-control {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-view-content-control-button {
     font-size: 32rpx;
     font-weight: normal;
     color: white;
     background-color: #07c160;
-    margin-top: 50rpx;
+    width: 432rpx;
 }
 
-.popup-view-button-hover {
+.popup-view-content-control-button-hover {
     background-color: #177c47;
 }
 
-.popup-view-error {
-    margin-top: 20rpx;
-    height: 120rpx;
+.popup-view-content-control-error {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 }
 
-.popup-view-error-tips {
-    font-size: 28rpx;
-    margin-left: 16rpx;
+.popup-view-content-control-error-tips {
+    font-size: 32rpx;
+    margin-left: 12rpx;
     font-weight: 600;
     color: #DB282BFF;
 }
 
 
-.popup-cart-view {
-    height: calc(958rpx - 200rpx);
+.popup-cart-content-view {
+    height: calc(1032rpx - 276rpx);
     display: flex;
     flex-direction: column;
     overflow: auto;
 }
 
-.popup-cart-view-food {
+.popup-cart-content-view-food {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -63,11 +76,11 @@
 
 /* ########################################### */
 
-.index-ordering-container-empty{
-    height: calc(100% - 100rpx);
+.index-ordering-container-empty {
+    height: calc(100% - 120rpx);
     display: flex;
     flex-direction: column;
-    padding-top: 104rpx;
+    padding-top: 100rpx;
 }
 
 .index-ordering-container {
@@ -81,7 +94,7 @@
     height: 300rpx;
 }
 
-.index-ordering-content-empty{
+.index-ordering-content-empty {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -120,7 +133,7 @@
     padding: 32rpx;
 }
 
-.index-ordering-content-food-plus{
+.index-ordering-content-food-plus {
     width: 44rpx;
     height: 44rpx;
     display: inline-grid;
@@ -128,7 +141,7 @@
     border-radius: 50%;
 }
 
-.index-ordering-content-food-plus-hover{
+.index-ordering-content-food-plus-hover {
     background-color: #1f7e4c;
 }
 
@@ -148,21 +161,21 @@
     position: relative !important;
 }
 
-.swiper-item{
+.swiper-item {
     height: 100%;
     text-align: center;
     line-height: 300rpx;
 }
 
-.swiper-item-1{
+.swiper-item-1 {
     background-color: cadetblue;
 }
 
-.swiper-item-2{
+.swiper-item-2 {
     background-color: cornflowerblue;
 }
 
-.swiper-item-3{
+.swiper-item-3 {
     background-color: gold;
 }
 

@@ -81,6 +81,17 @@ Page({
         });
         console.log(this.data.cart);
     },
+    initAppLocation: function () {
+        wx.authorize({
+            scope: 'scope.userLocation',
+            success() {
+                app.globalData.location = true;
+            },
+            fail() {
+                app.globalData.location = false;
+            }
+        })
+    },
     initUserInfo: function () {
         if (app.globalData.userInfo) {
             this.setData({
