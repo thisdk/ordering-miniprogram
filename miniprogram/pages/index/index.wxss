@@ -46,6 +46,23 @@
     color: #DB282BFF;
 }
 
+
+.popup-cart-view {
+    height: calc(918rpx - 100px);
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.popup-cart-view-food {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 32rpx;
+}
+
+/* ########################################### */
+
 .index-ordering-container-empty{
     height: calc(100% - 50px);
     display: flex;
@@ -131,7 +148,6 @@
 
 .van-submit-bar {
     position: relative !important;
-    z-index: unset !important;
 }
 
 .swiper-item{

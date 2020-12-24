@@ -1,27 +1,5 @@
 <view class="container">
 
-    <van-popup
-            show="{{ show && !hasUserInfo }}"
-            position="bottom"
-            bind:close="onPopupClose"
-            custom-style="height: 612rpx;"
-            close-on-click-overlay="{{ false }}">
-        <view class="popup-view">
-            <text class="popup-view-title">欢迎使用i智慧饭堂小程序</text>
-            <text class="popup-view-tips">1.本小程序暂时用于饭堂签到流程演示.</text>
-            <text class="popup-view-tips">2.本小程序暂时用于饭堂签到流程演示.</text>
-            <text class="popup-view-tips">3.本小程序暂时用于饭堂签到流程演示.</text>
-            <text class="popup-view-tips">4.使用过程需要用到您的用户名与头像.</text>
-            <button class="popup-view-button" hover-class="popup-view-button-hover" wx:if="{{ hasUserOpenId }}"
-                    open-type="getUserInfo" bindgetuserinfo="getUserInfo">授权用户信息
-            </button>
-            <view wx:else class="popup-view-error">
-                <van-icon name="warning" color="#DB282BFF" size="48rpx"/>
-                <text class="popup-view-error-tips">小程序openid初始化异常,无法继续.</text>
-            </view>
-        </view>
-    </van-popup>
-
     <view wx:if="{{ hasUserInfo }}" class="index-ordering-container">
 
         <view class="index-ordering-header">
@@ -30,7 +8,7 @@
 
                 <swiper-item wx:for="{{ background }}" wx:key="*this">
 
-                    <view class="swiper-item {{item}}">{{item}}</view>
+                    <view class="swiper-item {{item}}">广告招租位</view>
 
                 </swiper-item>
 
@@ -49,37 +27,34 @@
 
             <view class="index-ordering-content-main">
 
-                <scroll-view class='index-ordering-content-main-scroll'
+                <scroll-view class='index-ordering-content-main-scroll' enhanced="{{ true }}"
                              show-scrollbar="{{ false }}" scroll-y style="height: 100%">
 
                     <view class="index-ordering-content-food">
 
-                        <block wx:for="{{ foodDataInfo[category].list }}" wx:key="index" wx:for-item="item">
+                        <van-card
+                                wx:for="{{ foodDataInfo[category].list }}" wx:key="index" wx:for-item="item"
+                                style="{{ index!==0 ? 'margin-top: 32rpx;' : '' }}"
+                                tag="{{ item.tag }}"
+                                price="{{ item.price / 100.00 }}"
+                                origin-price="{{ item.origin > 0 ? item.origin / 100.00 : '' }}"
+                                desc="{{ item.desc }}"
+                                title="{{ item.title }}"
+                                thumb="{{ item.thumb }}">
 
-                            <van-card
-                                    style="{{ index!==0 ? 'margin-top: 32rpx;' : '' }}"
-                                    tag="{{ item.tag }}"
-                                    price="{{ item.price / 100.00 }}"
-                                    origin-price="{{ item.origin > 0 ? item.origin / 100.00 : '' }}"
-                                    desc="{{ item.desc }}"
-                                    title="{{ item.title }}"
-                                    thumb="{{ item.thumb }}">
+                            <view slot="footer" style="margin-top: -50rpx;">
 
-                                <view slot="footer" style="margin-top: -50rpx;">
+                                <view bindtap="onFoodItemClick" data-id="{{ item }}"
+                                      class="index-ordering-content-food-plus"
+                                      hover-class="index-ordering-content-food-plus-hover">
 
-                                    <view bindtap="onFoodItemClick" data-id="{{ item }}"
-                                          class="index-ordering-content-food-plus"
-                                          hover-class="index-ordering-content-food-plus-hover">
-
-                                        <van-icon size="32rpx" color="white" name="plus"/>
-
-                                    </view>
+                                    <van-icon size="32rpx" color="white" name="plus"/>
 
                                 </view>
 
-                            </van-card>
+                            </view>
 
-                        </block>
+                        </van-card>
 
                     </view>
 
@@ -95,9 +70,9 @@
 
         </view>
 
-        <van-transition show="{{ cart.quantity > 0 }}" name="fade-up">
+        <van-transition show="{{ cart.quantity > 0 || cart.list.length > 0 }}" name="fade-up">
 
-            <view wx:if="{{ cart.quantity > 0 }}" class="index-ordering-footer">
+            <view wx:if="{{ cart.quantity > 0 || cart.list.length > 0 }}" class="index-ordering-footer" z-index="{{ 100 }}">
 
                 <van-divider custom-style="margin: 0rpx;" hairline/>
 
@@ -110,7 +85,7 @@
                         tip="{{ false }}"
                         price="{{ cart.total }}">
 
-                    <view class="van-submit-bar-slot">
+                    <view class="van-submit-bar-slot" bindtap="onCartClick">
 
                         <van-icon name="cart-o" size="36rpx" info="{{ cart.quantity }}"/>
 
@@ -131,5 +106,68 @@
         <van-empty image="search" description="正在获取用户授权..."/>
 
     </view>
+
+    <van-popup
+            show="{{ showCart }}"
+            z-index="{{ 50 }}"
+            position="bottom"
+            custom-style="height: 918rpx;"
+            bind:close="onCartPopupClose"
+            close-on-click-overlay="{{ true }}">
+
+        <view class="popup-cart-view">
+
+            <scroll-view enhanced="{{ true }}" show-scrollbar="{{ false }}" scroll-y style="height: 100%">
+
+                <view class="popup-cart-view-food">
+
+                    <van-card
+                            wx:for="{{ cart.list }}" wx:key="index" wx:for-item="item"
+                            style="{{ index!==0 ? 'margin-top: 32rpx;' : '' }}"
+                            tag="{{ item.tag }}"
+                            price="{{ item.price / 100.00 }}"
+                            origin-price="{{ item.origin > 0 ? item.origin / 100.00 : '' }}"
+                            desc="{{ item.desc }}"
+                            title="{{ item.title }}"
+                            thumb="{{ item.thumb }}">
+
+                        <view slot="footer" style="margin-top: -30px;">
+
+                            <van-stepper min="{{ 0 }}" max="{{ 10 }}" data-id="{{ item.id }}"
+                                         value="{{ item.quantity }}" integer bind:change="onCartChange"/>
+
+                        </view>
+
+                    </van-card>
+
+                </view>
+
+            </scroll-view>
+
+        </view>
+
+    </van-popup>
+
+    <van-popup
+            show="{{ show && !hasUserInfo }}"
+            z-index="{{ 150 }}"
+            position="bottom"
+            custom-style="height: 612rpx;"
+            close-on-click-overlay="{{ false }}">
+        <view class="popup-view">
+            <text class="popup-view-title">欢迎使用i智慧饭堂小程序</text>
+            <text class="popup-view-tips">1.本小程序暂时用于饭堂签到流程演示.</text>
+            <text class="popup-view-tips">2.本小程序暂时用于饭堂签到流程演示.</text>
+            <text class="popup-view-tips">3.本小程序暂时用于饭堂签到流程演示.</text>
+            <text class="popup-view-tips">4.使用过程需要用到您的用户名与头像.</text>
+            <button class="popup-view-button" hover-class="popup-view-button-hover" wx:if="{{ hasUserOpenId }}"
+                    open-type="getUserInfo" bindgetuserinfo="getUserInfo">授权用户信息
+            </button>
+            <view wx:else class="popup-view-error">
+                <van-icon name="warning" color="#DB282BFF" size="48rpx"/>
+                <text class="popup-view-error-tips">小程序openid初始化异常,无法继续.</text>
+            </view>
+        </view>
+    </van-popup>
 
 </view>

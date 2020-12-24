@@ -6,6 +6,7 @@ const app = getApp()
 Page({
     data: {
         show: false,
+        showCart: false,
         hasUserOpenId: false,
         hasUserInfo: false,
         canIUse: wx.canIUse('button.open-type.getUserInfo'),
@@ -17,8 +18,16 @@ Page({
             quantity: 0,
             list: []
         },
+        dpi: ""
     },
     onLoad: function () {
+        wx.getSystemInfo({
+            success: res => {
+                this.setData({
+                    dpi: res.screenWidth + " " + res.screenHeight + " " + res.pixelRatio
+                })
+            }
+        })
         this.initUserOpenId();
         this.initUserInfo();
         this.showPopupWindow();
@@ -31,9 +40,7 @@ Page({
         let cart = this.data.cart;
         cart.total = cart.list.map(item => item.price * item.quantity).reduce((prev, next) => prev + next, 0);
         cart.quantity = cart.list.map(item => item.quantity).reduce((prev, next) => prev + next, 0);
-        this.setData({
-            cart: cart
-        });
+        this.setData({cart: cart});
     },
     onFoodItemClick: function (event) {
         let list = this.data.cart.list;
@@ -46,7 +53,6 @@ Page({
                 }
             }
         } else {
-            item.quantity = 1;
             this.data.cart.list.push(item);
         }
         this.updateCartInfo();
@@ -54,12 +60,35 @@ Page({
     onSidebarChange: function (event) {
         this.setData({category: event.detail});
     },
-    onPopupClose: function () {
-
+    onCartClick: function () {
+        this.setData({showCart: true});
+    },
+    onCartPopupClose: function () {
+        console.log("close")
+        let cart = this.data.cart;
+        cart.list = this.data.cart.list.filter(i => i.quantity !== 0);
+        this.setData({
+            showCart: false,
+            cart: cart
+        });
+    },
+    onCartChange: function (event) {
+        let itemId = event.currentTarget.dataset.id;
+        for (let i = 0; i < this.data.cart.list.length; i++) {
+            if (this.data.cart.list[i].id === itemId) {
+                this.data.cart.list[i].quantity = event.detail;
+            }
+        }
+        this.updateCartInfo();
     },
     onOrderingSubmit: function () {
-        this.data.cart.list = [];
-        this.updateCartInfo();
+        let cart = this.data.cart;
+        cart.list = this.data.cart.list.filter(i => i.quantity !== 0);
+        this.setData({
+            showCart: false,
+            cart: cart
+        });
+        console.log(this.data.cart);
     },
     initUserInfo: function () {
         if (app.globalData.userInfo) {
@@ -135,7 +164,7 @@ Page({
             title: "佛跳墙",
             desc: "宇宙无敌佛跳墙",
             origin: 0,
-            price: 1120,
+            price: 188888,
             thumb: "https://img.yzcdn.cn/vant/ipad.jpeg",
             quantity: 1
         }, {
