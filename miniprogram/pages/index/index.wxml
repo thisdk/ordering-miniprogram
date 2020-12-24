@@ -2,19 +2,16 @@
 
     <view wx:if="{{ hasUserInfo }}" class="index-ordering-container">
 
-        <view class="index-ordering-header">
+        <swiper class="index-ordering-header" indicator-dots="{{ true }}"
+                autoplay="{{ true }}" interval="{{ 2000 }}" duration="{{ 500 }}">
 
-            <swiper indicator-dots="{{ true }}" autoplay="{{ true }}" interval="{{ 2000 }}" duration="{{ 500 }}">
+            <swiper-item wx:for="{{ background }}" wx:key="*this">
 
-                <swiper-item wx:for="{{ background }}" wx:key="*this">
+                <view class="swiper-item {{item}}">广告招租位</view>
 
-                    <view class="swiper-item {{item}}">广告招租位</view>
+            </swiper-item>
 
-                </swiper-item>
-
-            </swiper>
-
-        </view>
+        </swiper>
 
         <view wx:if="{{ foodDataInfo }}" class="index-ordering-content">
 
@@ -72,7 +69,8 @@
 
         <van-transition show="{{ cart.quantity > 0 || cart.list.length > 0 }}" name="fade-up">
 
-            <view wx:if="{{ cart.quantity > 0 || cart.list.length > 0 }}" class="index-ordering-footer" z-index="{{ 100 }}">
+            <view wx:if="{{ cart.quantity > 0 || cart.list.length > 0 }}" class="index-ordering-footer"
+                  z-index="{{ 100 }}">
 
                 <van-divider custom-style="margin: 0rpx;" hairline/>
 
@@ -111,7 +109,7 @@
             show="{{ showCart }}"
             z-index="{{ 50 }}"
             position="bottom"
-            custom-style="height: 918rpx;"
+            custom-style="height: 958rpx;"
             bind:close="onCartPopupClose"
             close-on-click-overlay="{{ true }}">
 
@@ -131,7 +129,7 @@
                             title="{{ item.title }}"
                             thumb="{{ item.thumb }}">
 
-                        <view slot="footer" style="margin-top: -30px;">
+                        <view slot="footer" style="margin-top: -60rpx;">
 
                             <van-stepper min="{{ 0 }}" max="{{ 10 }}" data-id="{{ item.id }}"
                                          value="{{ item.quantity }}" integer bind:change="onCartChange"/>

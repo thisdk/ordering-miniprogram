@@ -3,7 +3,15 @@
   "version": "1.0.0",
   "description": "ordering miniprogram",
   "author": "Jason Yuan",
+  "scripts": {
+    "build": "gulp css"
+  },
   "dependencies": {
     "@vant/weapp": "^1.6.4"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-postcss": "^9.0.0",
+    "postcss-pxtransform": "^3.0.21"
   }
 }

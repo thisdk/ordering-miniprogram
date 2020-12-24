@@ -48,7 +48,7 @@
 
 
 .popup-cart-view {
-    height: calc(918rpx - 100px);
+    height: calc(958rpx - 200rpx);
     display: flex;
     flex-direction: column;
     overflow: auto;
@@ -64,14 +64,14 @@
 /* ########################################### */
 
 .index-ordering-container-empty{
-    height: calc(100% - 50px);
+    height: calc(100% - 100rpx);
     display: flex;
     flex-direction: column;
-    padding-top: 100rpx;
+    padding-top: 104rpx;
 }
 
 .index-ordering-container {
-    height: calc(100% - 50px);
+    height: calc(100% - 100rpx);
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -79,8 +79,6 @@
 
 .index-ordering-header {
     height: 300rpx;
-    display: flex;
-    flex-direction: column;
 }
 
 .index-ordering-content-empty{
@@ -152,8 +150,8 @@
 
 .swiper-item{
     height: 100%;
-    line-height: 300rpx;
     text-align: center;
+    line-height: 300rpx;
 }
 
 .swiper-item-1{

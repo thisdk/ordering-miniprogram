@@ -50,7 +50,11 @@
   "debugOptions": {
     "hidedInDevtools": []
   },
-  "scripts": {},
+  "scripts": {
+    "beforeCompile": "npm run build",
+    "beforePreview": "",
+    "beforeUpload": ""
+  },
   "isGameTourist": false,
   "packOptions": {
     "ignore": [

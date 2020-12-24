@@ -17,17 +17,9 @@ Page({
             total: 0,
             quantity: 0,
             list: []
-        },
-        dpi: ""
+        }
     },
     onLoad: function () {
-        wx.getSystemInfo({
-            success: res => {
-                this.setData({
-                    dpi: res.screenWidth + " " + res.screenHeight + " " + res.pixelRatio
-                })
-            }
-        })
         this.initUserOpenId();
         this.initUserInfo();
         this.showPopupWindow();
@@ -64,7 +56,6 @@ Page({
         this.setData({showCart: true});
     },
     onCartPopupClose: function () {
-        console.log("close")
         let cart = this.data.cart;
         cart.list = this.data.cart.list.filter(i => i.quantity !== 0);
         this.setData({
