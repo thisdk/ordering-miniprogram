@@ -1,6 +1,6 @@
 <view class="container">
 
-    <view wx:if="{{ hasUserInfo }}" class="index-ordering-container">
+    <view wx:if="{{ hasUserInfo }}" class="index-ordering-container flex-column">
 
         <swiper class="index-ordering-header" indicator-dots="{{ true }}"
                 autoplay="{{ true }}" interval="{{ 5000 }}" duration="{{ 750 }}">
@@ -13,7 +13,7 @@
 
         </swiper>
 
-        <view wx:if="{{ foodDataInfo }}" class="index-ordering-content">
+        <view wx:if="{{ foodDataInfo }}" class="flex-fill flex-row">
 
             <van-sidebar bind:change="onSidebarChange">
 
@@ -22,12 +22,12 @@
 
             </van-sidebar>
 
-            <view class="index-ordering-content-main">
+            <view class="index-ordering-content-main flex-fill">
 
                 <scroll-view class='index-ordering-content-main-scroll' enhanced="{{ true }}"
                              show-scrollbar="{{ false }}" scroll-y style="height: 100%">
 
-                    <view class="index-ordering-content-food">
+                    <view class="index-ordering-content-food flex-fill flex-column">
 
                         <van-card
                                 wx:for="{{ foodDataInfo[category].list }}" wx:key="index" wx:for-item="item"
@@ -61,7 +61,7 @@
 
         </view>
 
-        <view wx:else class="index-ordering-content-empty">
+        <view wx:else class="flex-fill flex-column flex-center">
 
             <van-loading size="48rpx">加载中...</van-loading>
 
@@ -69,7 +69,7 @@
 
         <van-transition show="{{ cart.quantity > 0 || cart.list.length > 0 }}" name="fade-up">
 
-            <view wx:if="{{ cart.quantity > 0 || cart.list.length > 0 }}" class="index-ordering-footer"
+            <view wx:if="{{ cart.quantity > 0 || cart.list.length > 0 }}" class="flex-column"
                   z-index="{{ 100 }}">
 
                 <van-divider custom-style="margin: 0rpx;" hairline/>
@@ -83,7 +83,7 @@
                         tip="{{ true }}"
                         price="{{ cart.total }}">
 
-                    <view class="van-submit-bar-slot" bindtap="onCartClick">
+                    <view class="van-submit-bar-slot flex-column" bindtap="onCartClick">
 
                         <van-icon name="cart-o" size="36rpx" info="{{ cart.quantity }}"/>
 
@@ -101,7 +101,7 @@
 
     </view>
 
-    <view wx:else class="index-ordering-container-empty">
+    <view wx:else class="index-ordering-container-empty flex-column">
 
         <van-empty image="search" description="正在获取用户授权..."/>
 
@@ -115,11 +115,11 @@
             bind:close="onCartPopupClose"
             close-on-click-overlay="{{ true }}">
 
-        <view class="popup-cart-content-view">
+        <view class="popup-cart-content-view flex-column">
 
             <scroll-view enhanced="{{ true }}" show-scrollbar="{{ false }}" scroll-y style="height: 100%">
 
-                <view class="popup-cart-content-view-food">
+                <view class="flex-fill flex-column" style="padding: 32rpx;">
 
                     <van-card
                             wx:for="{{ cart.list }}" wx:key="index" wx:for-item="item"
@@ -155,9 +155,9 @@
             custom-style="height: 612rpx;"
             close-on-click-overlay="{{ false }}">
 
-        <view class="popup-view">
+        <view class="popup-view flex-column">
 
-            <view class="popup-view-content">
+            <view class="popup-view-content flex-fill flex-column">
 
                 <text class="popup-view-content-title">欢迎使用i智慧饭堂小程序</text>
                 <text class="popup-view-content-tips">1.本小程序暂时用于饭堂签到流程演示.</text>
@@ -165,13 +165,13 @@
                 <text class="popup-view-content-tips">4.使用过程需要用到您的用户名与头像.</text>
                 <text class="popup-view-content-tips">3.使用过程需要用到您的当前位置信息. (可选)</text>
 
-                <view class="popup-view-content-control">
+                <view class="flex-fill flex-column flex-center">
 
                     <button class="popup-view-content-control-button"
                             hover-class="popup-view-content-control-button-hover" wx:if="{{ hasUserOpenId }}"
                             open-type="getUserInfo" bindgetuserinfo="getUserInfo">授权用户信息
                     </button>
-                    <view wx:else class="popup-view-content-control-error">
+                    <view wx:else class="flex-row flex-center">
                         <van-icon name="warning" color="#DB282BFF" size="48rpx"/>
                         <text class="popup-view-content-control-error-tips">小程序openid初始化异常,无法继续.</text>
                     </view>
@@ -183,5 +183,7 @@
         </view>
 
     </van-popup>
+
+    <van-toast id="van-toast" />
 
 </view>

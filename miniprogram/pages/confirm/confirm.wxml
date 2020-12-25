@@ -1,0 +1,53 @@
+<view class="container">
+
+    <view class="confirm-container flex-column">
+
+        <scroll-view enhanced="{{ true }}" show-scrollbar="{{ false }}" scroll-y style="overflow: auto;">
+
+            <van-notice-bar left-icon="volume-o" speed="{{ 32 }}"
+                            text="请认真查看商品清单是否正确.确认正确无误后支付."/>
+
+            <van-panel title="商品明细" status="未支付">
+
+                <view class="flex-fill flex-column" style="padding: 32rpx;">
+
+                    <van-card
+                            wx:for="{{ cart.list }}" wx:key="index" wx:for-item="item"
+                            num-class="confirm-panel-card-text"
+                            style="{{ index!==0 ? 'margin-top: 32rpx;' : '' }}"
+                            tag="{{ item.tag }}"
+                            price="{{ item.price / 100.00 }}"
+                            origin-price="{{ item.origin > 0 ? item.origin / 100.00 : '' }}"
+                            desc="{{ item.desc }}"
+                            title="{{ item.title }}"
+                            num="{{ item.quantity }}"
+                            thumb="{{ item.thumb }}"/>
+
+                </view>
+
+            </van-panel>
+
+            <view class="flex-column" style="padding: 32rpx; align-items: flex-end;">
+
+                <text class="confirm-panel-footer-text">共计 {{cart.quantity}} 件商品 小计：￥{{ cart.total / 100.00}}</text>
+
+            </view>
+
+            <view style="height: 50rpx"/>
+
+        </scroll-view>
+
+    </view>
+
+    <van-submit-bar
+            loading="{{ playing }}"
+            price="{{ cart.total }}"
+            button-text="立刻支付"
+            button-type="primary"
+            bind:submit="pay"/>
+
+    <van-dialog id="van-dialog" />
+
+    <van-toast id="van-toast" />
+
+</view>

@@ -1,0 +1,17 @@
+
+.confirm-container {
+    height: calc(100% - 100rpx);
+}
+
+.confirm-panel-card-text {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #333333;
+}
+
+.confirm-panel-footer-text {
+    font-size: 28rpx;
+    font-weight: bold;
+    color: #333333;
+}
+

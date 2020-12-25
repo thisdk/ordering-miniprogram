@@ -1,15 +1,10 @@
 
 .popup-view {
     height: calc(612rpx - 100rpx);
-    display: flex;
-    flex-direction: column;
 }
 
 .popup-view-content {
-    flex: 1;
     padding: 32rpx 32rpx 0rpx 32rpx;
-    display: flex;
-    flex-direction: column;
 }
 
 .popup-view-content-title {
@@ -25,14 +20,6 @@
     font-weight: bold;
 }
 
-.popup-view-content-control {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
 .popup-view-content-control-button {
     font-size: 32rpx;
     font-weight: normal;
@@ -45,13 +32,6 @@
     background-color: #177c47;
 }
 
-.popup-view-content-control-error {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
 .popup-view-content-control-error-tips {
     font-size: 32rpx;
     margin-left: 12rpx;
@@ -59,62 +39,26 @@
     color: #DB282BFF;
 }
 
-
 .popup-cart-content-view {
     height: calc(1032rpx - 276rpx);
-    display: flex;
-    flex-direction: column;
-    overflow: auto;
-}
-
-.popup-cart-content-view-food {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 32rpx;
 }
 
 /* ########################################### */
 
 .index-ordering-container-empty {
     height: calc(100% - 120rpx);
-    display: flex;
-    flex-direction: column;
     padding-top: 100rpx;
 }
 
 .index-ordering-container {
     height: calc(100% - 100rpx);
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
 }
 
 .index-ordering-header {
     height: 300rpx;
 }
 
-.index-ordering-content-empty {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.index-ordering-content {
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-}
-
-.index-ordering-footer {
-    display: flex;
-    flex-direction: column;
-}
-
 .index-ordering-content-main {
-    flex: 1;
     position: relative;
 }
 
@@ -127,9 +71,6 @@
 }
 
 .index-ordering-content-food {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
     padding: 32rpx;
 }
 
@@ -147,8 +88,6 @@
 
 .van-submit-bar-slot {
     margin-top: 8rpx;
-    display: flex;
-    flex-direction: column;
 }
 
 .van-submit-bar-slot-text {

@@ -3,21 +3,23 @@ const thread = require('../../utils/thread.js')
 
 const app = getApp()
 
+import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
+
 Page({
     data: {
         show: false,
         showCart: false,
         hasUserOpenId: false,
-        hasUserInfo: false,
         canIUse: wx.canIUse('button.open-type.getUserInfo'),
-        background: ['swiper-item-1', 'swiper-item-2', 'swiper-item-3'],
+        hasUserInfo: false,
         category: 0,
         foodDataInfo: null,
         cart: {
             total: 0,
             quantity: 0,
             list: []
-        }
+        },
+        background: ['swiper-item-1', 'swiper-item-2', 'swiper-item-3'],
     },
     onLoad: function () {
         this.initUserOpenId();
@@ -79,7 +81,13 @@ Page({
             showCart: false,
             cart: cart
         });
-        console.log(this.data.cart);
+        if (this.data.cart.quantity !== 0) {
+            wx.navigateTo({
+                url: '../confirm/confirm?cart=' + JSON.stringify(this.data.cart)
+            })
+        }else{
+            Toast.fail('没有餐品');
+        }
     },
     initAppLocation: function () {
         wx.authorize({
@@ -204,7 +212,7 @@ Page({
             category: '菜单',
             tag: "热销",
             title: "蛋炒饭",
-            desc: "看起来普普通通的炒饭,但是架不住便宜呀.",
+            desc: "看起来普普通通的炒饭,但是实在便宜呀.",
             origin: 0,
             price: 1080,
             thumb: "https://img.yzcdn.cn/vant/ipad.jpeg",

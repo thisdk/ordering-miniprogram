@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/order/order",
-    "pages/user/user"
+    "pages/user/user",
+    "pages/confirm/confirm"
   ],
   "permission": {
     "scope.userLocation": {

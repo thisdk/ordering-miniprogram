@@ -10,6 +10,7 @@
     "van-loading": "@vant/weapp/loading/index",
     "van-divider": "@vant/weapp/divider/index",
     "van-transition": "@vant/weapp/transition/index",
-    "van-stepper": "@vant/weapp/stepper/index"
+    "van-stepper": "@vant/weapp/stepper/index",
+    "van-toast": "@vant/weapp/toast/index"
   }
 }

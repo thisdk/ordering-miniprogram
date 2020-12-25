@@ -22,14 +22,14 @@ Component({
         ]
     },
     methods: {
-        onChange(event) {
-            if(!app.globalData.userInfo) return;
+        onChange: function (event) {
+            if (!app.globalData.userInfo) return;
             this.setData({active: event.detail});
             wx.switchTab({
                 url: this.data.list[event.detail].url
             });
         },
-        init() {
+        init: function () {
             const page = getCurrentPages().pop();
             this.setData({
                 active: this.data.list.findIndex(item => item.url === `/${page.route}`)

@@ -1,2 +1,15 @@
+<view class="container">
 
+    <view class="order-container flex-column">
+
+        <view class="flex-fill flex-column flex-center">
+
+            <van-empty description="列表为空" />
+
+        </view>
+
+    </view>
+
+
+</view>
 
