@@ -7,9 +7,6 @@ import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 
 Page({
     data: {
-        config: {
-            serviceTime: [9, 21]
-        },
         show: false,
         showCart: false,
         hasUserOpenId: false,
@@ -22,6 +19,11 @@ Page({
             quantity: 0,
             list: []
         },
+        timer: null,
+        config: {
+            serviceTime: [0, 24],
+            interval: 10 * 1000
+        },
         background: ['swiper-item-1', 'swiper-item-2', 'swiper-item-3'],
     },
     onLoad: function () {
@@ -32,6 +34,11 @@ Page({
     },
     onShow: function () {
         this.getTabBar().init();
+        this.checkFoodAvailable();
+        this.data.timer = setInterval(this.checkFoodAvailable, this.data.config.interval);
+    },
+    onHide: function () {
+        clearInterval(this.data.timer);
     },
     updateCartInfo: function () {
         let cart = this.data.cart;
@@ -158,6 +165,7 @@ Page({
         this.setData({show: true});
     },
     checkFoodAvailable: function () {
+        if (!this.data.foodArrayList || this.data.foodArrayList.length === 0) return;
         let hours = new Date().getHours();
         this.data.foodArrayList
             .filter(i => i.category === "全部")
