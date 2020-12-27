@@ -7,13 +7,16 @@ import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 
 Page({
     data: {
+        config: {
+            serviceTime: [9, 21]
+        },
         show: false,
         showCart: false,
         hasUserOpenId: false,
         canIUse: wx.canIUse('button.open-type.getUserInfo'),
         hasUserInfo: false,
         category: 0,
-        foodDataInfo: null,
+        foodArrayList: null,
         cart: {
             total: 0,
             quantity: 0,
@@ -51,6 +54,12 @@ Page({
         }
         this.updateCartInfo();
     },
+    onFoodItemClickNotAvailable: function (event) {
+        let list = this.data.foodArrayList.find(e => e.category === "全部").list;
+        let item = event.currentTarget.dataset.id;
+        let obj = list.find(e => e.id === item.id)
+        Toast.fail("不在服务时段\n" + obj.time[0] + ":00 - " + obj.time[1] + ":00");
+    },
     onSidebarChange: function (event) {
         this.setData({category: event.detail});
     },
@@ -85,7 +94,7 @@ Page({
             wx.navigateTo({
                 url: '../confirm/confirm?cart=' + JSON.stringify(this.data.cart)
             })
-        }else{
+        } else {
             Toast.fail('没有餐品');
         }
     },
@@ -148,20 +157,38 @@ Page({
         await thread.delay(1500);
         this.setData({show: true});
     },
+    checkFoodAvailable: function () {
+        let hours = new Date().getHours();
+        this.data.foodArrayList
+            .filter(i => i.category === "全部")
+            .forEach(e => e.list.forEach(item => {
+                item.available = hours >= item.time[0] && hours < item.time[1];
+            }));
+        this.setData({foodArrayList: this.data.foodArrayList})
+    },
     requestIndexInfo: async function () {
         await thread.delay(1500);
         let array = this.generateJsonData();
-        let data = this.transformJsonToUiData(array);
         this.setData({
-            foodDataInfo: data
-        })
+            foodArrayList: this.transformJsonToUiData(this.serviceHoursHandler(array))
+        });
         this.updateCartInfo();
+        this.checkFoodAvailable()
+    },
+    serviceHoursHandler: function (array) {
+        let serviceTime = this.data.config.serviceTime;
+        return array.map(e => {
+            if (!e.time) {
+                e.time = serviceTime
+            }
+            return e
+        });
     },
     transformJsonToUiData(array) {
-        return [...new Set([...array.map(i => i.tag), ...array.map(i => i.category)])].filter(item => item != null).map(item => {
+        return [...new Set([...array.map(i => i.category)]), "全部"].filter(item => item != null).map(item => {
             return {
                 category: item,
-                list: array.filter(i => i.category === item || i.tag === item)
+                list: array.filter(i => i.category === item || item === "全部")
             }
         });
     },
@@ -169,30 +196,55 @@ Page({
         let array = [];
         array.push({
             id: thread.uuid(),
-            category: '菜单',
-            tag: "热销",
-            title: "佛跳墙",
-            desc: "宇宙无敌佛跳墙",
+            category: '职员',
+            tag: "限时",
+            title: "午饭",
+            desc: "中午吃的饭",
+            time: [7, 9],
             origin: 0,
-            price: 188888,
+            price: 1000,
             thumb: "https://img.yzcdn.cn/vant/ipad.jpeg",
             quantity: 1
         }, {
             id: thread.uuid(),
-            category: '菜单',
+            category: '职员',
+            tag: "限时",
+            title: "晚饭",
+            desc: "晚上吃的饭",
+            time: [12, 15],
+            origin: 0,
+            price: 1000,
+            thumb: "https://img.yzcdn.cn/vant/ipad.jpeg",
+            quantity: 1
+        }, {
+            id: thread.uuid(),
+            category: '奢华',
+            tag: "热销",
+            title: "佛跳墙",
+            desc: "宇宙无敌佛跳墙",
+            time: null,
+            origin: 0,
+            price: 88888,
+            thumb: "https://img.yzcdn.cn/vant/ipad.jpeg",
+            quantity: 1
+        }, {
+            id: thread.uuid(),
+            category: '奢华',
             tag: "推荐",
             title: "黯然销魂饭",
             desc: "洋葱,我加了洋葱.",
+            time: null,
             origin: 0,
             price: 3990,
             thumb: "https://img.yzcdn.cn/vant/ipad.jpeg",
             quantity: 1
         }, {
             id: thread.uuid(),
-            category: '菜单',
+            category: '奢华',
             tag: "推荐",
             title: "黄金蛋炒饭",
             desc: "炒饭界的劳斯莱斯",
+            time: null,
             origin: 13888,
             price: 8888,
             thumb: "https://img.yzcdn.cn/vant/ipad.jpeg",
@@ -203,6 +255,7 @@ Page({
             tag: null,
             title: "酱油炒饭",
             desc: "看起来普普通通的炒饭.",
+            time: null,
             origin: 0,
             price: 1380,
             thumb: "https://img.yzcdn.cn/vant/ipad.jpeg",
@@ -213,6 +266,7 @@ Page({
             tag: "热销",
             title: "蛋炒饭",
             desc: "看起来普普通通的炒饭,但是实在便宜呀.",
+            time: null,
             origin: 0,
             price: 1080,
             thumb: "https://img.yzcdn.cn/vant/ipad.jpeg",
@@ -223,6 +277,7 @@ Page({
             tag: null,
             title: "扬州炒饭",
             desc: "看起来普普通通的炒饭.",
+            time: null,
             origin: 0,
             price: 1680,
             thumb: "https://img.yzcdn.cn/vant/ipad.jpeg",
@@ -233,6 +288,7 @@ Page({
             tag: null,
             title: "葱花煎蛋",
             desc: "看起来普普通通的煎蛋.",
+            time: null,
             origin: 0,
             price: 1580,
             thumb: "https://img.yzcdn.cn/vant/ipad.jpeg",
@@ -243,6 +299,7 @@ Page({
             tag: "推荐",
             title: "凉瓜煎蛋",
             desc: "非常好吃的煎蛋.",
+            time: null,
             origin: 0,
             price: 1580,
             thumb: "https://img.yzcdn.cn/vant/ipad.jpeg",

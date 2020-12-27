@@ -1,0 +1,4 @@
+
+.user-container {
+  height: calc(100% - 100rpx);
+}

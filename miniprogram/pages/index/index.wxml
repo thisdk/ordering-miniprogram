@@ -1,8 +1,8 @@
 <view class="container">
 
-    <view wx:if="{{ hasUserInfo }}" class="index-ordering-container flex-column">
+    <view wx:if="{{ hasUserInfo }}" class="index-container flex-column">
 
-        <swiper class="index-ordering-header" indicator-dots="{{ true }}"
+        <swiper class="index-header" indicator-dots="{{ true }}"
                 autoplay="{{ true }}" interval="{{ 5000 }}" duration="{{ 750 }}">
 
             <swiper-item wx:for="{{ background }}" wx:key="*this">
@@ -13,24 +13,24 @@
 
         </swiper>
 
-        <view wx:if="{{ foodDataInfo }}" class="flex-fill flex-row">
+        <view wx:if="{{ foodArrayList }}" class="flex-fill flex-row">
 
             <van-sidebar bind:change="onSidebarChange">
 
-                <van-sidebar-item wx:for="{{ foodDataInfo }}" wx:key="index" wx:for-item="item"
+                <van-sidebar-item wx:for="{{ foodArrayList }}" wx:key="index" wx:for-item="item"
                                   title="{{ item.category }}"/>
 
             </van-sidebar>
 
-            <view class="index-ordering-content-main flex-fill">
+            <view class="index-content-main flex-fill">
 
-                <scroll-view class='index-ordering-content-main-scroll' enhanced="{{ true }}"
+                <scroll-view class='index-content-main-scroll' enhanced="{{ true }}"
                              show-scrollbar="{{ false }}" scroll-y style="height: 100%">
 
-                    <view class="index-ordering-content-food flex-fill flex-column">
+                    <view class="index-content-food flex-fill flex-column">
 
                         <van-card
-                                wx:for="{{ foodDataInfo[category].list }}" wx:key="index" wx:for-item="item"
+                                wx:for="{{ foodArrayList[category].list }}" wx:key="index" wx:for-item="item"
                                 style="{{ index!==0 ? 'margin-top: 32rpx;' : '' }}"
                                 tag="{{ item.tag }}"
                                 price="{{ item.price / 100.00 }}"
@@ -41,9 +41,9 @@
 
                             <view slot="footer" style="margin-top: -50rpx;">
 
-                                <view bindtap="onFoodItemClick" data-id="{{ item }}"
-                                      class="index-ordering-content-food-plus"
-                                      hover-class="index-ordering-content-food-plus-hover">
+                                <view bindtap="{{ item.available ? 'onFoodItemClick' : 'onFoodItemClickNotAvailable'}}" data-id="{{ item }}"
+                                      class="index-content-food-plus {{ item.available ? 'index-content-food-plus-enable' : 'index-content-food-plus-disable' }}"
+                                      hover-class="{{ item.available ? 'index-content-food-plus-hover' : '' }}">
 
                                     <van-icon size="32rpx" color="white" name="plus"/>
 
@@ -101,7 +101,7 @@
 
     </view>
 
-    <view wx:else class="index-ordering-container-empty flex-column">
+    <view wx:else class="index-container-empty flex-column">
 
         <van-empty image="search" description="正在获取用户授权..."/>
 
@@ -184,6 +184,6 @@
 
     </van-popup>
 
-    <van-toast id="van-toast" />
+    <van-toast id="van-toast" style="text-align: center;"/>
 
 </view>

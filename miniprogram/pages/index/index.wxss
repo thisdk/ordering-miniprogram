@@ -45,24 +45,24 @@
 
 /* ########################################### */
 
-.index-ordering-container-empty {
+.index-container-empty {
     height: calc(100% - 120rpx);
     padding-top: 100rpx;
 }
 
-.index-ordering-container {
+.index-container {
     height: calc(100% - 100rpx);
 }
 
-.index-ordering-header {
+.index-header {
     height: 300rpx;
 }
 
-.index-ordering-content-main {
+.index-content-main {
     position: relative;
 }
 
-.index-ordering-content-main-scroll {
+.index-content-main-scroll {
     position: absolute;
     left: 0;
     right: 0;
@@ -70,19 +70,26 @@
     bottom: 0;
 }
 
-.index-ordering-content-food {
+.index-content-food {
     padding: 32rpx;
 }
 
-.index-ordering-content-food-plus {
+.index-content-food-plus {
     width: 44rpx;
     height: 44rpx;
     display: inline-grid;
-    background-color: #07c160;
     border-radius: 50%;
 }
 
-.index-ordering-content-food-plus-hover {
+.index-content-food-plus-enable {
+    background-color: #07c160;
+}
+
+.index-content-food-plus-disable {
+    background-color: #999999;
+}
+
+.index-content-food-plus-hover {
     background-color: #1f7e4c;
 }
 
