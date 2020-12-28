@@ -13,7 +13,10 @@
 
                     <van-card
                             wx:for="{{ cart.list }}" wx:key="index" wx:for-item="item"
+                            lazy-load="{{ true }}"
                             num-class="confirm-panel-card-text"
+                            thumb-mode="aspectFill"
+                            thumb-class="card-thumb-class"
                             style="{{ index!==0 ? 'margin-top: 32rpx;' : '' }}"
                             tag="{{ item.tag }}"
                             price="{{ item.price / 100.00 }}"

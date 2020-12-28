@@ -4,7 +4,7 @@ Page({
     data: {
         user: {}
     },
-    onLoad: function (options) {
+    onLoad: function () {
         this.setData({user: app.globalData.userInfo})
     },
     onShow: function () {

@@ -31,6 +31,9 @@
 
                         <van-card
                                 wx:for="{{ foodArrayList[category].list }}" wx:key="index" wx:for-item="item"
+                                lazy-load="{{ true }}"
+                                thumb-mode="aspectFill"
+                                thumb-class="card-thumb-class"
                                 style="{{ index!==0 ? 'margin-top: 32rpx;' : '' }}"
                                 tag="{{ item.tag }}"
                                 price="{{ item.price / 100.00 }}"
@@ -39,15 +42,13 @@
                                 title="{{ item.title }}"
                                 thumb="{{ item.thumb }}">
 
-                            <view slot="footer" style="margin-top: -50rpx;">
 
-                                <view bindtap="{{ item.available ? 'onFoodItemClick' : 'onFoodItemClickNotAvailable'}}" data-id="{{ item }}"
-                                      class="index-content-food-plus {{ item.available ? 'index-content-food-plus-enable' : 'index-content-food-plus-disable' }}"
-                                      hover-class="{{ item.available ? 'index-content-food-plus-hover' : '' }}">
+                            <view bindtap="{{ item.available ? 'onFoodItemClick' : 'onFoodItemClickNotAvailable'}}"
+                                  data-id="{{ item }}" slot="num" style="float: right;"
+                                  class="index-content-food-plus {{ item.available ? 'index-content-food-plus-enable' : 'index-content-food-plus-disable' }}"
+                                  hover-class="{{ item.available ? 'index-content-food-plus-hover' : '' }}">
 
-                                    <van-icon size="32rpx" color="white" name="plus"/>
-
-                                </view>
+                                <van-icon size="32rpx" color="white" name="plus"/>
 
                             </view>
 
@@ -123,6 +124,9 @@
 
                     <van-card
                             wx:for="{{ cart.list }}" wx:key="index" wx:for-item="item"
+                            lazy-load="{{ true }}"
+                            thumb-mode="aspectFill"
+                            thumb-class="card-thumb-class"
                             style="{{ index!==0 ? 'margin-top: 32rpx;' : '' }}"
                             tag="{{ item.tag }}"
                             price="{{ item.price / 100.00 }}"

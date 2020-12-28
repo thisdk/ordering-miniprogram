@@ -7,11 +7,7 @@
                    fit="cover"
                    width="128rpx"
                    height="128rpx"
-                   src="{{ user.avatarUrl }}">
-
-            <van-loading slot="loading" type="spinner" size="20" vertical/>
-
-        </van-image>
+                   src="{{ user.avatarUrl }}"/>
 
         <text style="color: #aaa; margin-top: 20rpx;">{{ user.nickName }}</text>
 

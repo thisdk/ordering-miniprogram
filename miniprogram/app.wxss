@@ -27,3 +27,17 @@ page {
     justify-content: center;
     align-items: center;
 }
+
+.card-thumb-class{
+    height: 76.8% !important;
+    width: 64.2% !important;
+    border-radius: 10rpx !important;
+    border: #999999 solid 2rpx;
+}
+
+.van-card__thumb {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+}

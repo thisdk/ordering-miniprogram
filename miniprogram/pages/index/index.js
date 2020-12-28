@@ -211,7 +211,7 @@ Page({
             time: [7, 9],
             origin: 0,
             price: 1000,
-            thumb: "https://img.yzcdn.cn/vant/ipad.jpeg",
+            thumb: "https://img.yzcdn.cn/vant/sand.jpg",
             quantity: 1
         }, {
             id: thread.uuid(),
@@ -222,7 +222,7 @@ Page({
             time: [12, 15],
             origin: 0,
             price: 1000,
-            thumb: "https://img.yzcdn.cn/vant/ipad.jpeg",
+            thumb: "https://img.yzcdn.cn/vant/sand.jpg",
             quantity: 1
         }, {
             id: thread.uuid(),
@@ -233,7 +233,7 @@ Page({
             time: null,
             origin: 0,
             price: 88888,
-            thumb: "https://img.yzcdn.cn/vant/ipad.jpeg",
+            thumb: "https://img.yzcdn.cn/vant/sand.jpg",
             quantity: 1
         }, {
             id: thread.uuid(),
@@ -244,7 +244,7 @@ Page({
             time: null,
             origin: 0,
             price: 3990,
-            thumb: "https://img.yzcdn.cn/vant/ipad.jpeg",
+            thumb: "https://img.yzcdn.cn/vant/sand.jpg",
             quantity: 1
         }, {
             id: thread.uuid(),
@@ -255,7 +255,7 @@ Page({
             time: null,
             origin: 13888,
             price: 8888,
-            thumb: "https://img.yzcdn.cn/vant/ipad.jpeg",
+            thumb: "https://img.yzcdn.cn/vant/sand.jpg",
             quantity: 1
         }, {
             id: thread.uuid(),
@@ -266,7 +266,7 @@ Page({
             time: null,
             origin: 0,
             price: 1380,
-            thumb: "https://img.yzcdn.cn/vant/ipad.jpeg",
+            thumb: "https://img.yzcdn.cn/vant/sand.jpg",
             quantity: 1
         }, {
             id: thread.uuid(),
@@ -277,7 +277,7 @@ Page({
             time: null,
             origin: 0,
             price: 1080,
-            thumb: "https://img.yzcdn.cn/vant/ipad.jpeg",
+            thumb: "https://img.yzcdn.cn/vant/sand.jpg",
             quantity: 1
         }, {
             id: thread.uuid(),
@@ -288,7 +288,7 @@ Page({
             time: null,
             origin: 0,
             price: 1680,
-            thumb: "https://img.yzcdn.cn/vant/ipad.jpeg",
+            thumb: "https://img.yzcdn.cn/vant/sand.jpg",
             quantity: 1
         }, {
             id: thread.uuid(),
@@ -299,7 +299,7 @@ Page({
             time: null,
             origin: 0,
             price: 1580,
-            thumb: "https://img.yzcdn.cn/vant/ipad.jpeg",
+            thumb: "https://img.yzcdn.cn/vant/sand.jpg",
             quantity: 1
         }, {
             id: thread.uuid(),
@@ -310,7 +310,7 @@ Page({
             time: null,
             origin: 0,
             price: 1580,
-            thumb: "https://img.yzcdn.cn/vant/ipad.jpeg",
+            thumb: "https://img.yzcdn.cn/vant/sand.jpg",
             quantity: 1
         });
         return array;

@@ -1,14 +1,38 @@
 <view class="container">
 
-    <view class="order-container flex-column">
+    <block wx:if="{{ true }}">
 
-        <view class="flex-fill flex-column flex-center">
+        <view class="order-container flex-column">
 
-            <van-empty description="列表为空" />
+            <scroll-view enhanced="{{ true }}" show-scrollbar="{{ false }}" refresher-enabled="{{ true }}"
+                         scroll-y style="height: 100%" bindrefresherrefresh="onRefresh"
+                         bindrefresherrestore="onRestore" refresher-triggered="{{ triggered }}">
+
+                <view class="flex-fill flex-column" style="color: #f7f8fa; padding: 32rpx;">
+
+
+
+                </view>
+
+            </scroll-view>
 
         </view>
 
-    </view>
+    </block>
+
+    <block wx:else>
+
+        <view class="order-container flex-column">
+
+            <view class="flex-fill flex-column flex-center">
+
+                <van-empty description="列表为空"/>
+
+            </view>
+
+        </view>
+
+    </block>
 
 
 </view>

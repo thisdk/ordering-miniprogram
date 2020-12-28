@@ -1,5 +1,7 @@
 {
   "usingComponents": {
-    "van-empty": "@vant/weapp/empty/index"
+    "van-empty": "@vant/weapp/empty/index",
+    "van-panel": "@vant/weapp/panel/index",
+    "van-image": "@vant/weapp/image/index"
   }
 }

@@ -43,8 +43,6 @@
     height: calc(1032rpx - 276rpx);
 }
 
-/* ########################################### */
-
 .index-container-empty {
     height: calc(100% - 120rpx);
     padding-top: 100rpx;
