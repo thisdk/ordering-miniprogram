@@ -1,8 +1,11 @@
+import api from 'wechat-request';
+
 App({
     globalData: {
         appid: "wxdd5f28543852c63d",
         secret: "",
         openid: "",
+        userid: "",
         userInfo: null,
         location: false
     },
@@ -28,6 +31,27 @@ App({
                 }
                 this.globalData.location = res.authSetting['scope.userLocation'];
             }
-        })
+        });
+
+        api.defaults.baseURL = 'https://service.thisdk.cool/ordering';
+
+        api.defaults.timeout = 15 * 1000;
+
+        api.defaults.headers.post['Content-Type'] = 'application/json';
+
+        api.interceptors.response.use(fulfilled => {
+            if (fulfilled.status !== 200) {
+                return Promise.reject("http status code : " + fulfilled.status);
+            }
+            let data = fulfilled.data;
+            if (data.code !== 0) {
+                return Promise.reject(data.msg);
+            } else {
+                return data.data;
+            }
+        }, rejected => {
+            return Promise.reject(rejected.errMsg);
+        });
+
     }
 })

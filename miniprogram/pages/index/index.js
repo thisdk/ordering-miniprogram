@@ -1,8 +1,9 @@
-const cloud = require('../../utils/cloud.js')
-const thread = require('../../utils/thread.js')
+const cloud = require('../../utils/cloud.js');
+const thread = require('../../utils/thread.js');
 
-const app = getApp()
+const app = getApp();
 
+import api from 'wechat-request';
 import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 
 Page({
@@ -49,7 +50,7 @@ Page({
     onFoodItemClick: function (event) {
         let list = this.data.cart.list;
         let item = event.currentTarget.dataset.id;
-        let obj = list.find(e => e.id === item.id)
+        let obj = list.find(e => e.id === item.id);
         if (obj) {
             for (let i = 0; i < this.data.cart.list.length; i++) {
                 if (this.data.cart.list[i].id === item.id) {
@@ -118,26 +119,49 @@ Page({
     },
     initUserInfo: function () {
         if (app.globalData.userInfo) {
-            this.setData({
-                hasUserInfo: true
-            })
+            this.setData({hasUserInfo: true})
         } else if (this.data.canIUse) {
             app.userInfoReadyCallback = res => {
                 app.globalData.userInfo = res.userInfo
-                this.setData({
-                    hasUserInfo: true
-                })
+                this.setData({hasUserInfo: true})
+                this.updateUserInfo(app.globalData.openid, res.userInfo);
             }
         } else {
             wx.getUserInfo({
                 success: res => {
                     if (res.userInfo) {
                         app.globalData.userInfo = res.userInfo
-                        this.setData({
-                            hasUserInfo: true
-                        })
+                        this.setData({hasUserInfo: true})
+                        this.updateUserInfo(app.globalData.openid, res.userInfo);
                     }
                 }
+            });
+        }
+    },
+    getUserInfo: function (res) {
+        if (res.detail.userInfo) {
+            app.globalData.userInfo = res.detail.userInfo;
+            this.setData({hasUserInfo: true});
+            this.updateUserInfo(app.globalData.openid, res.detail.userInfo);
+        }
+    },
+    updateUserInfo: async function (openid, userInfo) {
+        try {
+            let result = await api.get("/user/query?openid=" + openid);
+            app.globalData.userid = result.id;
+            await api.post("/user/insert", {
+                id: result.id,
+                openid: openid,
+                avatarUrl: userInfo.avatarUrl,
+                city: userInfo.city,
+                nickName: userInfo.nickName
+            });
+        } catch (e) {
+            await api.post("/user/insert", {
+                openid: openid,
+                avatarUrl: userInfo.avatarUrl,
+                city: userInfo.city,
+                nickName: userInfo.nickName
             });
         }
     },
@@ -145,20 +169,10 @@ Page({
         cloud.call("login", {}, res => {
             console.log('[云函数] [login] user openid: ', res.result.openid);
             app.globalData.openid = res.result.openid;
-            this.setData({
-                hasUserOpenId: true
-            });
+            this.setData({hasUserOpenId: true});
         }, err => {
             console.error('[云函数] [login] 调用失败', err);
         })
-    },
-    getUserInfo: function (res) {
-        if (res.detail.userInfo) {
-            app.globalData.userInfo = res.detail.userInfo;
-            this.setData({
-                hasUserInfo: true
-            });
-        }
     },
     showPopupWindow: async function () {
         await thread.delay(1500);
@@ -175,21 +189,25 @@ Page({
         this.setData({foodArrayList: this.data.foodArrayList})
     },
     requestIndexInfo: async function () {
-        await thread.delay(1500);
-        let array = this.generateJsonData();
-        this.setData({
-            foodArrayList: this.transformJsonToUiData(this.serviceHoursHandler(array))
-        });
-        this.updateCartInfo();
-        this.checkFoodAvailable()
+        try {
+            let array = await api.post("/food/query");
+            this.setData({
+                foodArrayList: this.transformJsonToUiData(this.dataQuantityHoursHandler(array))
+            });
+            this.updateCartInfo();
+            this.checkFoodAvailable()
+        } catch (e) {
+            Toast.fail(e);
+        }
     },
-    serviceHoursHandler: function (array) {
+    dataQuantityHoursHandler: function (array) {
         let serviceTime = this.data.config.serviceTime;
         return array.map(e => {
             if (!e.time) {
-                e.time = serviceTime
+                e.time = serviceTime;
             }
-            return e
+            e.quantity = 1;
+            return e;
         });
     },
     transformJsonToUiData(array) {
@@ -199,120 +217,5 @@ Page({
                 list: array.filter(i => i.category === item || item === "全部")
             }
         });
-    },
-    generateJsonData: function () {
-        let array = [];
-        array.push({
-            id: thread.uuid(),
-            category: '职员',
-            tag: "限时",
-            title: "午饭",
-            desc: "中午吃的饭",
-            time: [7, 9],
-            origin: 0,
-            price: 1000,
-            thumb: "https://img.yzcdn.cn/vant/sand.jpg",
-            quantity: 1
-        }, {
-            id: thread.uuid(),
-            category: '职员',
-            tag: "限时",
-            title: "晚饭",
-            desc: "晚上吃的饭",
-            time: [12, 15],
-            origin: 0,
-            price: 1000,
-            thumb: "https://img.yzcdn.cn/vant/sand.jpg",
-            quantity: 1
-        }, {
-            id: thread.uuid(),
-            category: '奢华',
-            tag: "热销",
-            title: "佛跳墙",
-            desc: "宇宙无敌佛跳墙",
-            time: null,
-            origin: 0,
-            price: 88888,
-            thumb: "https://img.yzcdn.cn/vant/sand.jpg",
-            quantity: 1
-        }, {
-            id: thread.uuid(),
-            category: '奢华',
-            tag: "推荐",
-            title: "黯然销魂饭",
-            desc: "洋葱,我加了洋葱.",
-            time: null,
-            origin: 0,
-            price: 3990,
-            thumb: "https://img.yzcdn.cn/vant/sand.jpg",
-            quantity: 1
-        }, {
-            id: thread.uuid(),
-            category: '奢华',
-            tag: "推荐",
-            title: "黄金蛋炒饭",
-            desc: "炒饭界的劳斯莱斯",
-            time: null,
-            origin: 13888,
-            price: 8888,
-            thumb: "https://img.yzcdn.cn/vant/sand.jpg",
-            quantity: 1
-        }, {
-            id: thread.uuid(),
-            category: '菜单',
-            tag: null,
-            title: "酱油炒饭",
-            desc: "看起来普普通通的炒饭.",
-            time: null,
-            origin: 0,
-            price: 1380,
-            thumb: "https://img.yzcdn.cn/vant/sand.jpg",
-            quantity: 1
-        }, {
-            id: thread.uuid(),
-            category: '菜单',
-            tag: "热销",
-            title: "蛋炒饭",
-            desc: "看起来普普通通的炒饭,但是实在便宜呀.",
-            time: null,
-            origin: 0,
-            price: 1080,
-            thumb: "https://img.yzcdn.cn/vant/sand.jpg",
-            quantity: 1
-        }, {
-            id: thread.uuid(),
-            category: '菜单',
-            tag: null,
-            title: "扬州炒饭",
-            desc: "看起来普普通通的炒饭.",
-            time: null,
-            origin: 0,
-            price: 1680,
-            thumb: "https://img.yzcdn.cn/vant/sand.jpg",
-            quantity: 1
-        }, {
-            id: thread.uuid(),
-            category: '菜单',
-            tag: null,
-            title: "葱花煎蛋",
-            desc: "看起来普普通通的煎蛋.",
-            time: null,
-            origin: 0,
-            price: 1580,
-            thumb: "https://img.yzcdn.cn/vant/sand.jpg",
-            quantity: 1
-        }, {
-            id: thread.uuid(),
-            category: '菜单',
-            tag: "推荐",
-            title: "凉瓜煎蛋",
-            desc: "非常好吃的煎蛋.",
-            time: null,
-            origin: 0,
-            price: 1580,
-            thumb: "https://img.yzcdn.cn/vant/sand.jpg",
-            quantity: 1
-        });
-        return array;
     }
 })
