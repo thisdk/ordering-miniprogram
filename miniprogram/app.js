@@ -39,18 +39,29 @@ App({
 
         api.defaults.headers.post['Content-Type'] = 'application/json';
 
-        api.interceptors.response.use(fulfilled => {
-            if (fulfilled.status !== 200) {
-                return Promise.reject("http status code : " + fulfilled.status);
+        api.interceptors.request.use(config => {
+            config.data = {
+                param: config.data == null ? null : config.data,
+                client: "miniprogram",
+                timestamp: Date.now()
             }
-            let data = fulfilled.data;
+            return config;
+        }, error => {
+            return Promise.reject(error.errMsg);
+        });
+
+        api.interceptors.response.use(response => {
+            if (response.status !== 200) {
+                return Promise.reject("http status code : " + response.status);
+            }
+            let data = response.data;
             if (data.code !== 0) {
                 return Promise.reject(data.msg);
             } else {
                 return data.data;
             }
-        }, rejected => {
-            return Promise.reject(rejected.errMsg);
+        }, error => {
+            return Promise.reject(error.errMsg);
         });
 
     }

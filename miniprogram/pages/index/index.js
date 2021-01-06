@@ -147,7 +147,7 @@ Page({
     },
     updateUserInfo: async function (openid, userInfo) {
         try {
-            let result = await api.get("/user/query?openid=" + openid);
+            let result = await api.post("/user/query", {openid: openid});
             app.globalData.userid = result.id;
             await api.post("/user/insert", {
                 id: result.id,
