@@ -33,7 +33,7 @@ App({
             }
         });
 
-        api.defaults.baseURL = 'https://service.thisdk.cool/ordering';
+        api.defaults.baseURL = 'https://service.thisdk.cool/ordering/program';
 
         api.defaults.timeout = 15 * 1000;
 

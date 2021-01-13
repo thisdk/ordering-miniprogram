@@ -25,7 +25,7 @@
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
     "compileHotReLoad": false,
-    "useMultiFrameRuntime": false,
+    "useMultiFrameRuntime": true,
     "useApiHook": true,
     "babelSetting": {
       "ignore": [],
@@ -45,7 +45,8 @@
         "miniprogramNpmDistDir": "./miniprogram"
       }
     ],
-    "minifyWXSS": true
+    "minifyWXSS": true,
+    "useApiHostProcess": false
   },
   "debugOptions": {
     "hidedInDevtools": []
