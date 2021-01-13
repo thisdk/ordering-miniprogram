@@ -5,9 +5,9 @@
         <scroll-view enhanced="{{ true }}" show-scrollbar="{{ false }}" scroll-y style="overflow: auto;">
 
             <van-notice-bar left-icon="volume-o" speed="{{ 32 }}"
-                            text="请认真查看商品清单是否正确.确认正确无误后支付."/>
+                            text="请认真查看商品清单是否正确.确认正确无误后提交."/>
 
-            <van-panel title="商品明细" status="未支付">
+            <van-panel title="商品明细" status="未创建">
 
                 <view class="flex-fill flex-column" style="padding: 32rpx;">
 
@@ -43,11 +43,11 @@
     </view>
 
     <van-submit-bar
-            loading="{{ playing }}"
+            loading="{{ submit }}"
             price="{{ cart.total }}"
-            button-text="立刻支付"
+            button-text="提交订单"
             button-type="primary"
-            bind:submit="pay"/>
+            bind:submit="submit"/>
 
     <van-dialog id="van-dialog" />
 

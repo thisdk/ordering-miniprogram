@@ -6,7 +6,7 @@ import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 Page({
 
     data: {
-        playing: false,
+        submit: false,
         cart: null
     },
 
@@ -19,24 +19,24 @@ Page({
         }
     },
 
-    pay: function () {
-        this.setData({playing: true});
+    submit: function () {
+        this.setData({submit: true});
         Dialog.confirm({
-            title: '支付确定',
-            message: '本次演示到此将要激活微信支付,但是本小程序只是模拟流程,无法接入支付.按确定后相当于已经付款.继续流程.',
+            title: '提交确定',
+            message: '本次演示到此将要激活微信支付,但是本小程序只是模拟流程,无法接入支付.按确定后继续流程.',
         }).then(() => {
             this.onPaySuccess();
         }).catch(() => {
-            this.setData({playing: false});
+            this.setData({submit: false});
         });
     },
 
     onPaySuccess: async function () {
         await thread.delay(1500);
-        this.setData({playing: false});
+        this.setData({submit: false});
         Toast({
             type: 'success',
-            message: '下单成功',
+            message: '提交成功',
             onClose: () => {
                 wx.reLaunch({
                     url: '/pages/order/order'
