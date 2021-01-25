@@ -1,16 +1,33 @@
 <view class="container">
 
-    <block wx:if="{{ true }}">
+    <block wx:if="{{ orderArrayList }}">
 
-        <view class="order-container flex-column">
+        <view class="order-container flex-column" style="background-color: #f7f8fa;">
 
             <scroll-view enhanced="{{ true }}" show-scrollbar="{{ false }}" refresher-enabled="{{ true }}"
                          scroll-y style="height: 100%" bindrefresherrefresh="onRefresh"
                          bindrefresherrestore="onRestore" refresher-triggered="{{ triggered }}">
 
-                <view class="flex-fill flex-column" style="color: #f7f8fa; padding: 32rpx;">
+                <view class="flex-fill flex-column"
+                      style="{{ index!==0 ? 'margin-top: 32rpx;' : '' }}"
+                      wx:for="{{ orderArrayList }}" wx:key="index" wx:for-item="item">
 
+                    <van-panel title="时间 : {{ item.createTimeStr }}" status="已付款" use-footer-slot>
 
+                        <view class="order-item flex-row">
+
+                            <text>{{ item.list[0].foodName }} 等{{ item.list.length }}件餐品</text>
+                            <text class="order-item-price-text">￥{{ item.orderPrice / 100.00}}</text>
+
+                        </view>
+
+                        <view slot="footer" class="flex-column" style="align-items: flex-end;">
+                            <van-button data-id="{{ item.code }}" size="small" type="danger"
+                                        disabled="{{ !item.enabled }}" bind:click="onItemClick">取餐码
+                            </van-button>
+                        </view>
+
+                    </van-panel>
 
                 </view>
 
@@ -26,7 +43,7 @@
 
             <view class="flex-fill flex-column flex-center">
 
-                <van-empty description="列表为空"/>
+                <van-empty description="{{ tips }}"/>
 
             </view>
 
@@ -34,6 +51,15 @@
 
     </block>
 
+    <van-dialog title="取餐码" use-slot show="{{ showDialog }}" bind:close="qrcodeDialogClose">
+        <view class="order-dialog flex-column flex-center">
+            <view class="flex-column flex-center" wx:if="{{ qrcode }}">
+                <canvas class='canvas' style="width:{{qrcodeWidth}}px; height:{{qrcodeWidth}}px;" canvas-id='canvas'/>
+                <text style="margin-top: 32rpx;">{{ codeText }}</text>
+            </view>
+            <van-loading wx:elif="{{ createQrcode }}" type="spinner" color="#1989fa"/>
+        </view>
+    </van-dialog>
 
 </view>
 

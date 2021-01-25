@@ -7,7 +7,8 @@
     "build": "gulp css"
   },
   "dependencies": {
-    "@vant/weapp": "^1.6.4",
+    "@vant/weapp": "^1.6.6",
+    "dayjs": "^1.10.4",
     "wechat-request": "^2.3.0"
   },
   "devDependencies": {

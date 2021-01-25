@@ -28,7 +28,7 @@ page {
     align-items: center;
 }
 
-.card-thumb-class{
+.card-thumb-class {
     height: 76.8% !important;
     width: 64.2% !important;
     border-radius: 10rpx !important;

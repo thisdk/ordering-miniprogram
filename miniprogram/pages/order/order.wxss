@@ -2,3 +2,21 @@
 .order-container {
     height: calc(100% - 100rpx);
 }
+
+.order-item {
+    padding: 20rpx 32rpx;
+    font-size: 28rpx;
+    color: #333333;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-item-price-text {
+    font-size: 24rpx;
+    font-weight: bold;
+    color: #333333;
+}
+
+.order-dialog {
+    height: 468rpx;
+}

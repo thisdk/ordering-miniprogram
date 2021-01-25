@@ -27,6 +27,7 @@
     "compileHotReLoad": false,
     "useMultiFrameRuntime": true,
     "useApiHook": true,
+    "useApiHostProcess": false,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -45,8 +46,7 @@
         "miniprogramNpmDistDir": "./miniprogram"
       }
     ],
-    "minifyWXSS": true,
-    "useApiHostProcess": false
+    "minifyWXSS": true
   },
   "debugOptions": {
     "hidedInDevtools": []
