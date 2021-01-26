@@ -10,13 +10,15 @@
 
                 <view class="flex-fill flex-column"
                       style="{{ index!==0 ? 'margin-top: 32rpx;' : '' }}"
+                      bindtap="onOrderClick" data-item="{{ item }}"
                       wx:for="{{ orderArrayList }}" wx:key="index" wx:for-item="item">
 
                     <van-panel title="时间 : {{ item.createTimeStr }}" status="已付款" use-footer-slot>
 
                         <view class="order-item flex-row">
 
-                            <text>{{ item.list[0].foodName }} 等{{ item.list.length }}件餐品</text>
+                            <text wx:if="{{ item.list[0].size > 1 }}">{{ item.list[0].foodName }} 等{{ item.list.length }}件餐品</text>
+                            <text wx:else>{{ item.list[0].foodName }}</text>
                             <text class="order-item-price-text">￥{{ item.orderPrice / 100.00}}</text>
 
                         </view>

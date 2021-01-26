@@ -87,6 +87,12 @@ Page({
         });
     },
 
+    onOrderClick: function (event) {
+        wx.navigateTo({
+            url: '../details/details?cart=' + JSON.stringify(event.currentTarget.dataset.item)
+        })
+    },
+
     onRefresh: function () {
         this.getOrderList();
     }
