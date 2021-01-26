@@ -1,16 +1,8 @@
-//Core code comes from https://github.com/davidshimjs/qrcodejs
 
 var QRCode;
 
 (function () {
-    /**
-     * Get the type by string length
-     *
-     * @private
-     * @param {String} sText
-     * @param {Number} nCorrectLevel
-     * @return {Number} type
-     */
+
     function _getTypeNumber(sText, nCorrectLevel) {
         var nType = 1;
         var length = _getUTF8Length(sText);
@@ -295,7 +287,6 @@ var QRCode;
             };
         }
 
-        // Overwrites options
         if (vOption) {
             for (var i in vOption) {
                 this._htOption[i] = vOption[i];
@@ -344,16 +335,9 @@ var QRCode;
                 var nLeft = col * nWidth;
                 var nTop = row * nHeight;
                 _oContext.setStrokeStyle(bIsDark ? _htOption.colorDark : _htOption.colorLight)
-                // _oContext.setStrokeStyle('yellow')
                 _oContext.setLineWidth(1)
                 _oContext.setFillStyle(bIsDark ? _htOption.colorDark : _htOption.colorLight)
-                // _oContext.setFillStyle('red')
-                // if (bIsDark) {
                 _oContext.fillRect(nLeft, nTop, nWidth, nHeight);
-                // }
-
-                // 안티 앨리어싱 방지 처리
-                // if (bIsDark) {
                 _oContext.strokeRect(
                     Math.floor(nLeft) + 0.5,
                     Math.floor(nTop) + 0.5,
@@ -367,38 +351,12 @@ var QRCode;
                     nRoundedWidth,
                     nRoundedHeight
                 );
-                // }
-                // _oContext.fillRect(
-                //     Math.floor(nLeft) + 0.5,
-                //     Math.floor(nTop) + 0.5,
-                //     nRoundedWidth,
-                //     nRoundedHeight
-                // );
-                // _oContext.fillRect(
-                //     Math.ceil(nLeft) - 0.5,
-                //     Math.ceil(nTop) - 0.5,
-                //     nRoundedWidth,
-                //     nRoundedHeight
-                // );
-                // _oContext.clearRect(
-                //     Math.floor(nLeft) + 0.5,
-                //     Math.floor(nTop) + 0.5,
-                //     nRoundedWidth,
-                //     nRoundedHeight
-                // );
-                // _oContext.clearRect(
-                //     Math.ceil(nLeft) - 0.5,
-                //     Math.ceil(nTop) - 0.5,
-                //     nRoundedWidth,
-                //     nRoundedHeight
-                // );
             }
         }
 
         _oContext.draw(false, callback)
     };
 
-    // 保存为图片，将临时路径传给回调
     QRCode.prototype.exportImage = function (callback) {
         if (!callback) {
             return
@@ -413,9 +371,6 @@ var QRCode;
             canvasId: this.canvasId,
             success: function (res) {
                 callback(res.tempFilePath)
-            },
-            fail:res=>{
-                console.log(res)
             }
         })
     }

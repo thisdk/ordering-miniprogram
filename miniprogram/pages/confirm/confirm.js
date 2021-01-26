@@ -1,4 +1,4 @@
-import api from "wechat-request";
+import api from '../../utils/wechat-request/index';
 
 const thread = require('../../utils/thread.js')
 

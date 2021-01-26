@@ -1,4 +1,4 @@
-import api from 'wechat-request';
+import api from './utils/wechat-request/index';
 
 App({
     globalData: {
@@ -41,7 +41,7 @@ App({
 
         api.interceptors.request.use(config => {
             config.data = {
-                param: config.data == null ? null : config.data,
+                param: config.data !== undefined && config.data !== null ? config.data : null,
                 client: "miniprogram",
                 timestamp: Date.now()
             }

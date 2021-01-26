@@ -8,12 +8,11 @@
   },
   "dependencies": {
     "@vant/weapp": "^1.6.6",
-    "dayjs": "^1.10.4",
-    "wechat-request": "^2.3.0"
+    "dayjs": "^1.10.4"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-postcss": "^9.0.0",
-    "postcss-pxtransform": "^3.0.23"
+    "postcss-pxtransform": "^3.0.25"
   }
 }

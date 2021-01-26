@@ -6,7 +6,7 @@
 
             <scroll-view enhanced="{{ true }}" show-scrollbar="{{ false }}" refresher-enabled="{{ true }}"
                          scroll-y style="height: 100%" bindrefresherrefresh="onRefresh"
-                         bindrefresherrestore="onRestore" refresher-triggered="{{ triggered }}">
+                         refresher-triggered="{{ triggered }}">
 
                 <view class="flex-fill flex-column"
                       style="{{ index!==0 ? 'margin-top: 32rpx;' : '' }}"

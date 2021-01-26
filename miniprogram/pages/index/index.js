@@ -3,7 +3,7 @@ const thread = require('../../utils/thread.js');
 
 const app = getApp();
 
-import api from 'wechat-request';
+import api from '../../utils/wechat-request/index';
 import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 
 Page({
@@ -26,6 +26,7 @@ Page({
             interval: 10 * 1000
         },
         background: ['swiper-item-1', 'swiper-item-2', 'swiper-item-3'],
+        tips: "加载中..."
     },
     onLoad: function () {
         this.initUserOpenId();
@@ -198,6 +199,9 @@ Page({
             this.checkFoodAvailable()
         } catch (e) {
             Toast.fail(e);
+            this.setData({
+                tips: '服务器异常'
+            });
         }
     },
     dataQuantityHoursHandler: function (array) {

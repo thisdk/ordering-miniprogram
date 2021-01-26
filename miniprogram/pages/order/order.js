@@ -1,4 +1,4 @@
-import api from "wechat-request";
+import api from '../../utils/wechat-request/index';
 import dayjs from "dayjs";
 import rpx2px from '../../utils/rpx2px.js';
 
@@ -89,9 +89,6 @@ Page({
 
     onRefresh: function () {
         this.getOrderList();
-    },
-
-    onRestore: function () {
     }
 
 })

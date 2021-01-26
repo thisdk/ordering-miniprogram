@@ -64,7 +64,7 @@
 
         <view wx:else class="flex-fill flex-column flex-center">
 
-            <van-loading size="48rpx">加载中...</van-loading>
+            <van-loading size="48rpx" vertical>{{ tips }}</van-loading>
 
         </view>
 
