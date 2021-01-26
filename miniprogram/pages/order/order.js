@@ -10,7 +10,7 @@ const app = getApp();
 Page({
 
     data: {
-        tips: "列表为空",
+        tips: "",
         triggered: false,
         orderArrayList: null,
         qrcodeWidth: rpx2px(300),
@@ -45,23 +45,26 @@ Page({
             }).reverse()
             this.setData({
                 triggered: false,
-                orderArrayList: res
+                orderArrayList: res.length === 0 ? null : res,
+                tips: res.length === 0 ? "暂无订单" : ""
             });
         } catch (e) {
             console.log(e)
             this.setData({
                 triggered: false,
-                tips: "获取失败"
+                tips: "获取订单失败"
             });
         }
     },
 
     onItemClick: async function (event) {
+        let item = event.currentTarget.dataset.id
+        if (!item.enabled) return
         this.setData({
             qrcode: null,
             showDialog: true,
             createQrcode: true,
-            codeText: event.currentTarget.dataset.id
+            codeText: item.code
         });
         let qrcode = new QRCode('canvas', {
             text: Date.now() + '-' + event.currentTarget.dataset.id,
