@@ -64,7 +64,7 @@ Page({
             codeText: event.currentTarget.dataset.id
         });
         let qrcode = new QRCode('canvas', {
-            text: Date.now() + ' - ' + event.currentTarget.dataset.id,
+            text: Date.now() + '-' + event.currentTarget.dataset.id,
             width: this.data.qrcodeWidth,
             height: this.data.qrcodeHeight,
             colorDark: "#333333",

@@ -66,6 +66,7 @@ Page({
     },
 
     onPaySuccess: async function () {
+        await thread.delay(1000);
         this.setData({submit: false});
         Toast({
             type: 'success',
