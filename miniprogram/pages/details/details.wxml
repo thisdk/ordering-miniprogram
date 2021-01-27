@@ -1,1 +1,71 @@
+<view class="container">
 
+    <scroll-view enhanced="{{ true }}" show-scrollbar="{{ false }}" scroll-y style="height: 100%">
+
+        <view class="flex-fill flex-column">
+
+            <view style="background-color: #f7f8fa; height: 164rpx;" class="flex-column flex-center">
+
+                <van-button wx:if="{{ order.status === 1 && order.enabled }}" round type="info" size="small"
+                            data-id="{{ order }}" bind:click="onItemClick">取餐码
+                </van-button>
+
+                <text wx:else class="details-header-tips">已取餐 , 祝你用餐愉快 !</text>
+
+            </view>
+
+            <view class="flex-column" wx:if="{{ order.takeMealTime }}">
+                <view style="height: 24rpx; background-color: #f7f8fa;" />
+                <van-cell title="取餐时间" icon="smile-o" value="{{ order.takeMealTimeStr }}"></van-cell>
+                <view style="height: 24rpx; background-color: #f7f8fa;" />
+            </view>
+
+            <van-panel title="时间 : {{ order.createTimeStr }}" desc="{{ order.orderId }}" status="{{ order.statusStr }}">
+
+                <view class="flex-fill flex-column" style="padding: 32rpx;">
+
+                    <view style="{{ index!==0 ? 'margin-top: 24rpx;' : '' }}"
+                          class="details-food-item flex-row" wx:for="{{ order.list }}" wx:key="index"
+                          wx:for-item="item">
+
+                        <image lazy-load="{{ true }}" mode="aspectFill"
+                               src="{{ item.thumb }}" class="details-food-item-image"/>
+
+                        <view class="flex-fill flex-row" style="justify-content: space-between;">
+                            <view class="flex-column" style="height: 132rpx; justify-content: space-around;">
+                                <text class="details-food-name">{{ item.foodName }}</text>
+                                <text class="details-food-price">￥{{ item.price / 100.00 }}</text>
+                            </view>
+                            <view class="details-food-quantity flex-column">
+                                <text class="details-food-quantity-text">x{{ item.quantity }}</text>
+                            </view>
+                        </view>
+
+                    </view>
+
+                </view>
+
+            </van-panel>
+
+            <view class="flex-column" style="padding: 32rpx; align-items: flex-end;">
+
+                <text class="details-panel-footer-text"
+                >共计 {{order.quantity}} 件商品 实付：￥{{ order.orderPrice / 100.00}}</text>
+
+            </view>
+
+        </view>
+
+    </scroll-view>
+
+    <van-dialog title="取餐码" use-slot show="{{ showDialog }}" bind:close="qrcodeDialogClose">
+        <view class="details-dialog flex-column flex-center">
+            <view class="flex-column flex-center" wx:if="{{ qrcode }}">
+                <canvas class='canvas' style="width:{{qrcodeWidth}}px; height:{{qrcodeWidth}}px;" canvas-id='canvas'/>
+                <text style="margin-top: 32rpx;">{{ codeText }}</text>
+            </view>
+            <van-loading wx:elif="{{ createQrcode }}" type="spinner" color="#1989fa"/>
+        </view>
+    </van-dialog>
+
+</view>

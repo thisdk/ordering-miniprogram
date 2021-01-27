@@ -14,20 +14,23 @@
 
                     <van-panel
                             bindtap="onOrderClick" data-item="{{ item }}"
-                            title="时间 : {{ item.createTimeStr }}" status="已付款" use-footer-slot>
+                            title="时间 : {{ item.createTimeStr }}" status="{{ item.statusStr }}"
+                            desc="{{ item.takeMealTime ? '取餐 : ' + item.takeMealTimeStr : null }}"
+                            use-footer-slot>
 
                         <view class="order-item flex-row">
 
-                            <text wx:if="{{ item.list.length > 1 }}">{{ item.list[0].foodName }} 等{{ item.list.length
-                                }}件餐品</text>
+                            <text wx:if="{{ item.quantity > 1 }}"
+                            >{{ item.list[0].foodName }} 等{{ item.quantity}}件餐品</text>
                             <text wx:else>{{ item.list[0].foodName }}</text>
                             <text class="order-item-price-text">￥{{ item.orderPrice / 100.00}}</text>
 
                         </view>
 
-                        <view slot="footer" class="flex-column" style="align-items: flex-end;">
-                            <van-button data-id="{{ item }}" size="small" type="danger"
-                                        disabled="{{ !item.enabled }}" catchtap="onItemClick">取餐码
+                        <view slot="footer" class="flex-column"
+                              style="align-items: flex-end;">
+                            <van-button data-id="{{ item }}" disabled="{{ !item.enabled || item.status !== 1 }}"
+                                        size="small" type="danger" catchtap="onItemClick">取餐码
                             </van-button>
                         </view>
 

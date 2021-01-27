@@ -2,6 +2,8 @@ import api from '../../utils/wechat-request/index';
 import dayjs from "dayjs";
 import rpx2px from '../../utils/rpx2px.js';
 
+
+const isToday = require('../../utils/isToday.js')
 const thread = require('../../utils/thread.js')
 const QRCode = require('../../utils/weapp-qrcode.js')
 
@@ -22,25 +24,47 @@ Page({
     },
 
     onLoad: function () {
-        this.getOrderList()
+        dayjs.extend(isToday)
+        this.getOrderList(app.globalData.openid)
     },
 
     onShow: function () {
         this.getTabBar().init();
     },
 
-    getOrderList: async function () {
+    getOrderList: async function (openId) {
         try {
             this.setData({
                 triggered: true,
                 tips: "正在获取..."
             });
             let res = await api.post("/order/query", {
-                openid: app.globalData.openid
+                openid: openId
             })
             res = res.map(it => {
                 it.createTimeStr = dayjs(it.createTime).format('YYYY-MM-DD HH:mm:ss')
-                it.enabled = dayjs(Date.now()).diff(it.createTime, 'day') < 1
+                if (it.takeMealTime) {
+                    it.takeMealTimeStr = dayjs(it.takeMealTime).format('YYYY-MM-DD HH:mm:ss')
+                }
+                it.enabled = dayjs(Date.now()).isToday()
+                switch (it.status) {
+                    case 1: {
+                        it.statusStr = "已付款";
+                        break;
+                    }
+                    case 2: {
+                        it.statusStr = "已取餐";
+                        break;
+                    }
+                    case 3: {
+                        it.statusStr = "已取消";
+                        break;
+                    }
+                    default: {
+                        it.statusStr = "异常";
+                    }
+                }
+                if (!it.enabled) it.statusStr = "已过期";
                 return it;
             }).reverse()
             this.setData({
@@ -59,7 +83,7 @@ Page({
 
     onItemClick: async function (event) {
         let item = event.currentTarget.dataset.id
-        if (!item.enabled) return
+        if (!item.enabled || item.status !== 1) return
         this.setData({
             qrcode: null,
             showDialog: true,
@@ -97,7 +121,7 @@ Page({
     },
 
     onRefresh: function () {
-        this.getOrderList();
+        this.getOrderList(app.globalData.openid);
     }
 
 })

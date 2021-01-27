@@ -7,7 +7,7 @@
 
             <swiper-item wx:for="{{ background }}" wx:key="*this">
 
-                <view class="swiper-item {{item}}">广告招租位</view>
+                <view class="swiper-item {{item}}">i智慧饭堂</view>
 
             </swiper-item>
 

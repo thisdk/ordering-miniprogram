@@ -1,0 +1,50 @@
+
+.details-dialog {
+    height: 468rpx;
+}
+
+.details-header-tips {
+    font-size: 32rpx;
+    color: #333333;
+    font-weight: bold;
+}
+
+.details-food-item {
+    background-color: #f7f8fa;
+    align-items: center;
+}
+
+.details-food-item-image {
+    width: 98rpx;
+    height: 120rpx;
+    border-radius: 10rpx;
+    margin: 24rpx 32rpx;
+}
+
+.details-food-name {
+    color: #333333;
+    font-size: 28rpx;
+}
+
+.details-food-price {
+    font-size: 28rpx;
+    color: #ee0a24;
+    font-weight: bold;
+}
+
+.details-food-quantity {
+    justify-content: flex-end;
+    padding-right: 32rpx;
+}
+
+.details-food-quantity-text {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #333333;
+}
+
+.details-panel-footer-text {
+    font-size: 28rpx;
+    font-weight: bold;
+    color: #333333;
+}
