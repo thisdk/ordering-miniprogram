@@ -10,7 +10,7 @@
                             data-id="{{ order }}" bind:click="onItemClick">取餐码
                 </van-button>
 
-                <text wx:else class="details-header-tips">已取餐 , 祝你用餐愉快 !</text>
+                <text wx:else class="details-header-tips">{{ order.status === 2 ? '已取餐 , 祝你用餐愉快 !' : '已过期 !' }}</text>
 
             </view>
 

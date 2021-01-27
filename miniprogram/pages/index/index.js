@@ -29,10 +29,8 @@ Page({
         tips: "加载中..."
     },
     onLoad: function () {
-        this.initUserOpenId();
-        this.initUserInfo();
         this.showPopupWindow();
-        this.requestIndexInfo();
+        this.initUserOpenId();
     },
     onShow: function () {
         this.getTabBar().init();
@@ -125,7 +123,7 @@ Page({
             app.userInfoReadyCallback = res => {
                 app.globalData.userInfo = res.userInfo
                 this.setData({hasUserInfo: true})
-                this.updateUserInfo(app.globalData.openid, res.userInfo);
+                this.updateUserInfo();
             }
         } else {
             wx.getUserInfo({
@@ -133,7 +131,7 @@ Page({
                     if (res.userInfo) {
                         app.globalData.userInfo = res.userInfo
                         this.setData({hasUserInfo: true})
-                        this.updateUserInfo(app.globalData.openid, res.userInfo);
+                        this.updateUserInfo();
                     }
                 }
             });
@@ -143,37 +141,67 @@ Page({
         if (res.detail.userInfo) {
             app.globalData.userInfo = res.detail.userInfo;
             this.setData({hasUserInfo: true});
-            this.updateUserInfo(app.globalData.openid, res.detail.userInfo);
+            this.updateUserInfo();
         }
     },
-    updateUserInfo: async function (openid, userInfo) {
+    updateUserInfo: async function () {
         try {
-            let result = await api.post("/user/query", {openid: openid});
-            app.globalData.userid = result.id;
-            await api.post("/user/insert", {
-                id: result.id,
-                openid: openid,
-                avatarUrl: userInfo.avatarUrl,
-                city: userInfo.city,
-                nickName: userInfo.nickName
+            let user = app.globalData.userInfo;
+            await api.post("/user/update", {
+                id: app.globalData.serviceUser.id,
+                username: app.globalData.openid,
+                password: app.globalData.serviceUser.password,
+                openid: app.globalData.openid,
+                avatar: user.avatarUrl,
+                city: user.city,
+                nickname: user.nickName
             });
         } catch (e) {
-            await api.post("/user/insert", {
-                openid: openid,
-                avatarUrl: userInfo.avatarUrl,
-                city: userInfo.city,
-                nickName: userInfo.nickName
-            });
+            console.log(e)
         }
     },
     initUserOpenId: function () {
-        cloud.call("login", {}, res => {
+        cloud.call("login", {}, async res => {
             console.log('[云函数] [login] user openid: ', res.result.openid);
             app.globalData.openid = res.result.openid;
             this.setData({hasUserOpenId: true});
+            await this.loginToService()
         }, err => {
             console.error('[云函数] [login] 调用失败', err);
         })
+    },
+    loginToService: async function () {
+        try {
+            app.globalData.token = await api.post("/auth/login", {
+                username: app.globalData.openid,
+                password: app.globalData.openid
+            });
+            api.defaults.headers['Authorization'] = app.globalData.token;
+            await this.getServiceUserInfo()
+            await this.requestIndexInfo()
+        } catch (e) {
+            console.log(e)
+            await this.registerToService()
+        }
+    },
+    registerToService: async function () {
+        try {
+            await api.post("/auth/register", {
+                username: app.globalData.openid,
+                password: app.globalData.openid
+            });
+            await this.loginToService()
+        } catch (e) {
+            console.log(e)
+        }
+    },
+    getServiceUserInfo: async function () {
+        try {
+            app.globalData.serviceUser = await api.post("/user/query", null);
+            this.initUserInfo()
+        } catch (e) {
+            console.log(e)
+        }
     },
     showPopupWindow: async function () {
         await thread.delay(1500);
@@ -191,7 +219,7 @@ Page({
     },
     requestIndexInfo: async function () {
         try {
-            let array = await api.post("/food/query");
+            let array = await api.post("/program/food/query");
             this.setData({
                 foodArrayList: this.transformJsonToUiData(this.dataQuantityHoursHandler(array))
             });

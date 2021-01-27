@@ -38,7 +38,7 @@ Page({
                 triggered: true,
                 tips: "正在获取..."
             });
-            let res = await api.post("/order/query", {
+            let res = await api.post("/program/order/query", {
                 openid: openId
             })
             res = res.map(it => {
@@ -46,7 +46,7 @@ Page({
                 if (it.takeMealTime) {
                     it.takeMealTimeStr = dayjs(it.takeMealTime).format('YYYY-MM-DD HH:mm:ss')
                 }
-                it.enabled = dayjs(Date.now()).isToday()
+                it.enabled = dayjs(it.createTime).isToday()
                 switch (it.status) {
                     case 1: {
                         it.statusStr = "已付款";

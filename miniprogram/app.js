@@ -5,8 +5,9 @@ App({
         appid: "wxdd5f28543852c63d",
         secret: "",
         openid: "",
-        userid: "",
+        token: "",
         userInfo: null,
+        serviceUser: null,
         location: false
     },
     onLaunch: function () {
@@ -33,7 +34,7 @@ App({
             }
         });
 
-        api.defaults.baseURL = 'https://service.thisdk.cool/ordering/program';
+        api.defaults.baseURL = 'https://service.thisdk.cool/ordering/';
 
         api.defaults.timeout = 15 * 1000;
 

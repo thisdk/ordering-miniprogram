@@ -171,8 +171,9 @@
 
                 <view class="flex-fill flex-column flex-center">
 
-                    <button class="popup-view-content-control-button"
-                            hover-class="popup-view-content-control-button-hover" wx:if="{{ hasUserOpenId }}"
+                    <button wx:if="{{ hasUserOpenId }}"
+                            class="popup-view-content-control-button"
+                            hover-class="popup-view-content-control-button-hover"
                             open-type="getUserInfo" bindgetuserinfo="getUserInfo">授权用户信息
                     </button>
                     <view wx:else class="flex-row flex-center">
