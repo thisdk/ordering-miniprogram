@@ -220,11 +220,18 @@ Page({
     requestIndexInfo: async function () {
         try {
             let array = await api.post("/program/food/query");
-            this.setData({
-                foodArrayList: this.transformJsonToUiData(this.dataQuantityHoursHandler(array))
-            });
-            this.updateCartInfo();
-            this.checkFoodAvailable()
+            if (array.length > 0) {
+                this.setData({
+                    foodArrayList: this.transformJsonToUiData(this.dataQuantityHoursHandler(array))
+                });
+                this.updateCartInfo();
+                this.checkFoodAvailable()
+            } else {
+                Toast.fail("暂无餐品");
+                this.setData({
+                    tips: '暂无餐品'
+                });
+            }
         } catch (e) {
             Toast.fail(e);
             this.setData({
