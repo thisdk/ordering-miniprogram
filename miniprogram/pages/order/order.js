@@ -7,10 +7,7 @@ const isToday = require('../../utils/isToday.js')
 const thread = require('../../utils/thread.js')
 const QRCode = require('../../utils/weapp-qrcode.js')
 
-const app = getApp();
-
 Page({
-
     data: {
         tips: "",
         triggered: false,
@@ -22,29 +19,24 @@ Page({
         codeText: null,
         showDialog: false
     },
-
     onLoad: function () {
         dayjs.extend(isToday)
-        this.getOrderList(app.globalData.openid)
+        this.getOrderList()
     },
-
     onShow: function () {
         this.getTabBar().init();
     },
-
-    getOrderList: async function (openId) {
+    getOrderList: async function () {
         try {
             this.setData({
                 triggered: true,
                 tips: "正在获取..."
             });
-            let res = await api.post("/program/order/query", {
-                openid: openId
-            })
+            let res = await api.post("/program/order/querySelfOrder", null)
             res = res.map(it => {
                 it.createTimeStr = dayjs(it.createTime).format('YYYY-MM-DD HH:mm:ss')
-                if (it.takeMealTime) {
-                    it.takeMealTimeStr = dayjs(it.takeMealTime).format('YYYY-MM-DD HH:mm:ss')
+                if (it.obtainTime) {
+                    it.obtainTimeStr = dayjs(it.obtainTime).format('YYYY-MM-DD HH:mm:ss')
                 }
                 it.enabled = dayjs(it.createTime).isToday()
                 switch (it.status) {
@@ -80,7 +72,6 @@ Page({
             });
         }
     },
-
     onItemClick: async function (event) {
         let item = event.currentTarget.dataset.id
         if (!item.enabled || item.status !== 1) return
@@ -106,22 +97,18 @@ Page({
             });
         }
     },
-
     qrcodeDialogClose: function () {
         this.setData({
             qrcode: null,
             createQrcode: false
         });
     },
-
     onOrderClick: function (event) {
         wx.navigateTo({
             url: '../details/details?cart=' + JSON.stringify(event.currentTarget.dataset.item)
         })
     },
-
     onRefresh: function () {
-        this.getOrderList(app.globalData.openid);
+        this.getOrderList();
     }
-
 })

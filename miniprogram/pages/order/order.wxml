@@ -15,7 +15,7 @@
                     <van-panel
                             bindtap="onOrderClick" data-item="{{ item }}"
                             title="时间 : {{ item.createTimeStr }}" status="{{ item.statusStr }}"
-                            desc="{{ item.takeMealTime ? '取餐 : ' + item.takeMealTimeStr : null }}"
+                            desc="{{ item.obtainTime ? '取餐 : ' + item.obtainTimeStr : null }}"
                             use-footer-slot>
 
                         <view class="order-item flex-row">

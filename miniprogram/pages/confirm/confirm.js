@@ -37,7 +37,7 @@ Page({
 
     insertOrder: async function () {
         try {
-            await api.post("/program/order/insert", {
+            await api.post("/program/order/create", {
                 openid: app.globalData.openid,
                 total: this.data.cart.total,
                 quantity: this.data.cart.quantity,
