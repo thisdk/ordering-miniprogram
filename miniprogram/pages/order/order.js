@@ -56,7 +56,7 @@ Page({
                         it.statusStr = "异常";
                     }
                 }
-                if (!it.enabled) it.statusStr = "已过期";
+                if (!it.enabled && it.status !== 2) it.statusStr = "已过期";
                 return it;
             }).reverse()
             this.setData({
